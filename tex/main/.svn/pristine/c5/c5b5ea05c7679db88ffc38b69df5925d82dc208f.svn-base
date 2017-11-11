@@ -1,6 +1,0 @@
-\appendix
-
-\section{Appendix}
-
-\lstinputlisting[language=Prolog]{elpi/main.elpi}
-\lstinputlisting[language=Prolog]{elpi/calc/setPi.elpi}

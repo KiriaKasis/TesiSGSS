@@ -1,7 +1,0 @@
-\appendix
-
-\section{Appendix}
-
-\begin{lstlisting}[language=Prolog]
-	contenuto...
-\end{lstlisting}
