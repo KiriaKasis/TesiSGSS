@@ -1,0 +1,8 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+ 	\input{../init}
+\begin{document} 
+	\input{../document}
+	\nocite{*}
+\end{document}

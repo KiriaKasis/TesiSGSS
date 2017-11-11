@@ -1,0 +1,62 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = ./thesis.tex
+
+\section{The Code}
+	All the code was written in $\lambda$Prolog (in particular it was written for the ELPI implementation \cite{dunchev2015elpi} of $\lambda$Prolog) and make extensive use of many high level features that in other languages would not be available. Still our code does not use many of the more advanced features offered by ELPI like constraint programming which we plan to use in the next phase of the project when we will start to implement a kernel for the planned proof checker
+
+	In this section we will show some extract of the code and explain how we obtained the desired functionalities.
+	\subsection{Project Structure and Extensibility}
+		We have divided the code 4 categories \verb|main|, \verb|calc|, \verb|test|, \verb|debug|.
+		The first, \verb|main| holds type declaration for the other modules and define the general functionality of the theory shared by all type constructor of both levels.
+		the second is a folder containing a \verb|.elpi| file for each type constructor; in each of these files we implement the typing and conversion rules for that particular type constructor. For example in \verb|calc/setPi.elpi| we keep all definitions related to dependent products, like the implementation of $\Pi$-I or the interpretation of a function term.
+		\begin{verbatim}
+		of (lambda B F) (setPi B C) IE
+		    :- ofType B _ IE
+		    ,  (pi x\ locDecl x B => isa (F x) (C x) IE)
+		    .		
+		\end{verbatim}
+
+		\begin{verbatim}
+		interp (lambda B F) R
+		    :- spy(of (lambda B F) (setPi B C) ext)
+		    ,  spy(interp (setPi B C) (setSigma (setPi Bi Ci) H ))
+		    ,  macro_interp B ( x\_\_\xi\_\_\ interp (F x) (Fi xi))
+		    ,  setoid_eq B EquB
+		    ,  macro_interp B (x1\x2\h\x1i\x2i\hi\tau_proof_eq 
+		        (F x1) 
+		        (F x2) 
+		        (C x2) 
+		        (K_EQU x1i x2i hi))
+		    ,  R = pair (setPi Bi Ci) (H) (lambda Bi Fi)
+		        (forall_lam Bi x1\ 
+		        	forall_lam Bi x2\ 
+		        	    forall_lam (EquB x1 x2) h\ K_EQU x1 x2 h)
+		    .
+		\end{verbatim}
+%		
+%		The last two, \verb|test| and \verb|debug|,  hold utilities to quickly test the predicates from \verb|main| and \verb|calc| in addition to useful predicates needed to inspect the runtime behaviour of the type checking and of the interpretation.
+%	\subsection{Explanation of the Predicates}
+%	We can divide the predicate defined in our implementation in three groups: judgement predicates, conversion predicates and interpretation predicates.
+%	\subsubsection{\texttt{of}, \texttt{isa}, \texttt{ofType} and \texttt{isaType}}
+%	In the first group are the predicate corresponding to the judgements $A \ type\ [\Gamma]$ or $a \in A\ [\Gamma]$. We use the \verb|of Term Type Level| predicate to represent the judgement $Term \in Type\ [\Gamma]$ at the level indicated by the third argument, we also define another predicate \verb|isa Term Type Level| to check if the inferred type of \verb|Term| is convertible with \verb|Type| at level \verb|Level|; a major difference between these two predicate is that for \verb|of| the first and last argument are inputs and the middle is an output, while for \verb|isa| all three arguments are inputs. Similarly \verb|ofType Type Kind Level| and \verb|isaType Type Kind Level| implement the corresponding functionality at the type level.
+%	\subsubsection{\texttt{pts\char`_*} Predicates}
+%	In the Minimalist Foundation in general the kind of a type is not unique but admit a most general unifier, this unifier will be the intended output of \verb|ofType| and the logic to find it is implemented in the various PTS predicates. As an example a dependent product $\Pi(B,C)$ is never a proposition  and is a set if both $A\ set$ and $B(x)\ set\ [x\in A]$ hold.
+%	
+%	This can be expressed with the following code:
+%	\begin{verbatim}
+%		pts_leq A A.
+%		pts_leq set col.
+%		pts_leq props set.
+%		pts_leq propc col.
+%		pts_leq props propc.
+%		pts_leq props col.
+%		
+%		pts_fun A B set :- pts_leq A set, pts_leq B set, !.
+%		pts_fun _ _ col.
+%	\end{verbatim}
+%	Other variations allow to decide the most general kind of universal/existential quantifiers, connectives or lists.
+%%	\subsubsection{\texttt{conv}, \texttt{dconv}, \texttt{hnf} and \texttt{hstep}} d
+%%	While conversion at the intensional level is almost straightforward at the extensional level we need to be more careful as a naive implementation would be extremely inefficient due to the rule Eq-E \[\begin{prooftree}\hypo{\s{true}\in\s{Eq}(C,c,d)\ [c\in C, d\in C]}\infer1{c=d\in C}\end{prooftree}\] 
+%%	\subsection{Level and Kind Generic Predicates}
+%		

@@ -1,0 +1,15 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+
+	
+
+
+	
+	[1] Maietti, Maria Emilia, and Giovanni Sambin. "Toward a minimalist foundation for constructive mathematics." From Sets and Types to Topology and Analysis: Practicable Foundations for Constructive Mathematics 48 (2005): 91-114.
+	
+	[2] Maietti, Maria Emilia. "A minimalist two-level foundation for constructive mathematics." Annals of Pure and Applied Logic 160.3 (2009): 319-354.
+	
+	[3] Nadathur, Gopalan, and Dale Miller. "An overview of Lambda-PROLOG." (1988).
+	
+	[4] Dunchev, Cvetan, et al. "ELPI: Fast, Embeddable,\lambda Prolog Interpreter." Logic for Programming, Artificial Intelligence, and Reasoning. Springer, Berlin, Heidelberg, 2015. 

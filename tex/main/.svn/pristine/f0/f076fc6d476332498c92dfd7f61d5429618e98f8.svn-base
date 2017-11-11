@@ -1,0 +1,229 @@
+\chapter{Appendix}
+\begin{verbatim}
+%%-- dependents products: setPi
+type setPi mttType -> (mttTerm -> mttType) -> mttType.
+type lambda mttType -> (mttTerm -> mttTerm) -> mttTerm.
+type app mttTerm -> mttTerm -> mttTerm.
+
+%%-- propositional conjunction: and
+type and mttType -> mttType -> mttType.
+type pair_and mttType -> mttType -> mttTerm -> mttTerm -> mttTerm.
+type p1_and, p2_and mttTerm -> mttTerm.
+
+
+%%-- dependet sums: setSigma
+type setSigma mttType -> (mttTerm -> mttType) -> mttType.
+type pair mttType 
+		-> (mttTerm -> mttType) 
+		-> mttTerm 
+		-> mttTerm 
+		-> mttTerm
+		.
+type elim_setSigma mttTerm 
+		-> (mttTerm -> mttType) 
+		-> (mttTerm -> mttTerm -> mttTerm) 
+		-> mttTerm.
+
+%%-- existential quantifier: exist
+type exist mttType -> (mttTerm -> mttType) -> mttType.
+type pair_exist mttType 
+	-> (mttTerm -> mttType) 
+	-> mttTerm 
+	-> mttTerm 
+	-> mttTerm
+	.
+type elim_exist mttTerm 
+	-> mttType 
+	-> (mttTerm -> mttTerm -> mttTerm) 
+	-> mttTerm.
+
+%%-- universal quantifier: forall
+type forall     mttType -> (mttTerm -> mttType) -> mttType.
+type forall_lam mttType -> (mttTerm -> mttTerm) -> mttTerm.
+type forall_app mttTerm -> mttTerm -> mttTerm.
+
+%%-- intensional propositional equality: propId
+type propId mttType -> mttTerm -> mttTerm -> mttType.
+type id     mttType -> mttTerm -> mttTerm.
+type elim_id    mttTerm 
+-> (mttTerm -> mttTerm -> mttType) 
+-> (mttTerm -> mttTerm)
+-> mttTerm.
+
+
+%%-- implication: implies
+type implies    mttType -> mttType -> mttType.
+type impl_lam   mttType -> (mttTerm -> mttTerm) -> mttTerm.
+type impl_app   mttTerm -> mttTerm -> mttTerm.
+
+%%-- local definitions: letIn
+%this may soon change as it is still to be decided how this should look like
+type letIn mttType -> mttTerm -> (mttTerm -> mttTerm) -> mttTerm.
+
+%%-- propositional disjunction: or
+type or mttType -> mttType -> mttType.
+type inl_or, inr_or mttType -> mttType -> mttTerm -> mttTerm.
+type elim_or mttType 
+-> mttTerm 
+-> (mttTerm -> mttTerm) 
+-> (mttTerm -> mttTerm) 
+-> mttTerm
+.
+
+%%-- disjoint sum: setSum
+type setSum mttType -> mttType -> mttType.
+type inl, inr mttType -> mttType -> mttTerm -> mttTerm.
+type elim_setSum (mttTerm -> mttType) 
+-> mttTerm 
+-> (mttTerm -> mttTerm) 
+-> (mttTerm -> mttTerm) 
+-> mttTerm
+.
+
+
+%%-- singleton set/unit type: singleton
+type  singleton mttType.
+type  star mttTerm.
+type  elim_singleton mttTerm 
+	-> (mttTerm -> mttType) 
+	-> mttTerm 
+	-> mttTerm
+	.
+
+/* UNITYPED COMPUTATIONAL PREDICATES */
+type hstep, dconv, hnf,  conv, interp A -> A -> prop. 
+
+/*MTT PREDICATES*/
+kind mttTerm,               mttType, mttKind, mttLevel type.
+type ext, int               mttLevel.
+type col, set, propc, props mttKind.
+
+
+type locDecl            mttTerm -> mttType -> prop.
+type locDeclType        mttType -> mttKind -> prop.
+type ofType             mttType -> mttKind -> mttLevel -> prop.
+type of, isa            mttTerm -> mttType -> mttLevel -> prop.
+
+type locDef         mttTerm -> mttType -> mttTerm -> prop.
+
+type forall mttType -> (mttTerm -> mttType) -> mttType.
+
+
+
+hnf A B :- hstep A C, !, hnf C B.
+hnf A A.
+
+conv A A :- ! .
+conv A B :- (locDecl _ (propEq _ A B) ).
+conv A B :- spy(hnf A A'), spy( hnf B B'), spy( dconv A' B').
+
+dconv A A :- !.
+
+pts_leq A A.
+pts_leq props set.
+pts_leq props col.
+pts_leq props propc.
+pts_leq set col.
+pts_leq propc col.
+
+pts_prop props props props :- !.
+pts_prop _ _ propc.
+
+pts_fun A B set :- spy(pts_leq A set), spy(pts_leq B set), !.
+pts_fun _ _ col.
+
+pts_for A props props :- pts_leq A set, !.
+pts_for _ _ propc. 
+
+
+%ofType A KIND IE :- locDeclType A KIND .
+
+isaType Type Kind IE 
+:- spy(ofType Type Kind' IE)
+,  spy(pts_leq  Kind' Kind)
+.
+
+of (fixMe2 M T ) T int 
+:- !
+,  print "|||||||||||\n"
+,  print M
+,  term_to_string T S, print S
+,  print "|||||||||||\n"
+.
+
+isa (fixMe M) T int 
+:- !
+,  print "|||||||||||\n"
+,  print M
+,  term_to_string T S, print S
+,  print "|||||||||||\n"
+.
+
+
+isa Term TY IE 
+:- spy(of Term TY' IE)
+,  spy(conv TY' TY)
+.
+
+
+of X Y _ :-  locDecl X Y .
+
+
+tau_proof_eq A A T H'
+:- interp_isa A T Ai
+,  setoid_refl T H
+,  H' = H Ai
+.
+
+tau_proof_eq A B T Hi
+:- spy(locDecl H (propEq T' A B)), !
+,  spy(interp_isa H (propEq T A B) Hi)
+.
+
+tau_proof_eq A B T Hi
+:- (locDecl H (propEq T' B A))
+,  spy(interp_isa H (propEq T B A) Hi')
+,  spy (setoid_symm T Q)
+,  Hi = Q Hi'
+.
+
+tau A A (x \ x) :- !.
+
+tau_trasp A A (x\y\h\ h) :- !.
+
+
+%interpret X:_ext T in un Xi di tipi Ti
+interp_isa X T Xi 
+:- spy(of X T_inf ext)
+,  spy(interp X Xi')
+,  spy(tau T_inf T F)
+,  spy(Xi = F Xi')
+.
+
+locDecl (k_propId Te) (forall T t1\ forall T t1'\ 
+implies (E t1 t1') (forall T t2\ forall T t2'\ 
+implies (E t2 t2') (implies (E t1 t2) (E t1' t2'))) )
+:- interp Te T
+,  setoid_eq Te E
+.
+
+setoid_symm T (x\ fixMe "prova di symmetria").
+
+macro_tau B B' Q 
+:- spy(setoid_eq B EquB)
+,  spy(interp B Bi)
+,  spy(interp B' Bi')
+,  spy(pi x1 \ pi x2 \ pi h\
+pi x1i\ pi x2i\ pi hi\ locDecl x1 B => locDecl x2 B'
+=> locDecl x1i Bi
+=> locDecl x2i Bi'
+=> interp x1 x1i
+=> interp x2 x2i
+=> (locDecl h (propEq B x1 x2)) 
+=> (locDecl hi (EquB x1i x2i))
+=> interp h hi
+=> spy(Q x1 x2 h x1i x2i hi)
+) 
+. 
+macro_interp B Q :- macro_tau B B Q.
+\end{verbatim}

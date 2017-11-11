@@ -1,0 +1,28 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = ./thesis.tex
+
+\documentclass[12pt,a4paper,draft,openany,oneside,openbib]{report}
+% 	\input{./init}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{listings}
+\begin{document} 
+\maketitle
+\tableofcontents
+asdasdasd
+\begin{lstlisting}
+qwe qweq we qwe
+\end{lstlisting} qweqweqwe
+%
+%\input{./intro}
+%
+%\input{./holp}
+%\input{./interp}
+%\input{./code}
+%\input{./document}
+%%\nocite{*}
+%\input{./biblio}
+\input{./prolog}
+\end{document}

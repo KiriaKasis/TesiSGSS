@@ -1,0 +1,33 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+
+	
+
+	
+	Finally, they ended up proposing a constructive foundation for mathematics equipped with two levels: an intensional level that acts as a programming language and is the actual proofs-as-programs theory; and an extensional level that acts as the set theory where to formalize mathematical proofs. Then, the constructivity of the whole foundation relies on the fact that the extensional level must be implemented over the intensional level, but not only this. Indeed, following Sambin’s forget-restore principle, they also required that extensional concepts must be abstractions of intensional ones as result of forgetting irrelevant computational information.
+	Such information is then restored when extensional concepts are translated back at the intensional level.
+	
+	In 2009 M. Maietti [2] presented the syntax and judgements of the two levels, together with a proof that a suitable completion of the intentional level provides a model of the extensional one. The proof is constructive and based on a sequence of categorical constructions, the most important being the construction of a quotient model and a notion of canonical isomorphism between dependent setoids.
+	
+	
+	In the talk we will present an ongoing project to implement the following software components:
+	1) a type checker for the intensional level
+	2) a reformulation of the extensional level that allows to store sintactically proof objects that are later used to provide the information to be restored when going from the extensional to the intensional level
+	3) a type checker for the obtained extensional level
+	4) a translator from well-typed extensional terms to well-typed intensional terms
+	
+	Combining the translator with a proof extraction component it will be possible to extract programs from proofs written in the extensional level.
+	
+	We have chosen LambdaProlog [3](and its recent implementation ELPI [4], by the second author) as the programming language to write the two type checkers and the translator. The benefits are that LambdaProlog takes care of the intricacies of dealing with binders and alpha-conversion and moreover a LambdaProlog implementation of a syntax-directed judgement is just made of simple clauses that are almost literal translations of the judgemental rules. This allows humans (and logicians in particular) to simply inspect the code to spot possible errors.
+	
+	At the time of the submission of the abstract the two type-checkers are completed and we are working on the extension of the calculus and on the translator.
+	
+	
+	[1] Maietti, Maria Emilia, and Giovanni Sambin. "Toward a minimalist foundation for constructive mathematics." From Sets and Types to Topology and Analysis: Practicable Foundations for Constructive Mathematics 48 (2005): 91-114.
+	
+	[2] Maietti, Maria Emilia. "A minimalist two-level foundation for constructive mathematics." Annals of Pure and Applied Logic 160.3 (2009): 319-354.
+	
+	[3] Nadathur, Gopalan, and Dale Miller. "An overview of Lambda-PROLOG." (1988).
+	
+	[4] Dunchev, Cvetan, et al. "ELPI: Fast, Embeddable,\lambda Prolog Interpreter." Logic for Programming, Artificial Intelligence, and Reasoning. Springer, Berlin, Heidelberg, 2015. 

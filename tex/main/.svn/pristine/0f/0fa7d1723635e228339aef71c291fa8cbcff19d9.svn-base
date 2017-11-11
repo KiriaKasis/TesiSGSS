@@ -1,0 +1,20 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+
+\documentclass[12pt,a4paper,draft,openany,oneside,openbib]{report}
+ 	\input{../init}
+\begin{document} 
+
+\chapter{Introduction}
+
+
+
+In 2005 M. Maietti and G. Sambin  argued about the necessity of building a foundation for constructive mathematics to be taken as a common core among relevant existing foundations in axiomatic set theory, such as Aczel-Myhill’s CZF theory, or in category theory, such as the internal theory of a topos, or in type theory, such as Martin-Lof’s type theory and Coquand’s Calculus of Inductive Constructions. Moreover, they asked the foundation to satisfy the “proofs-as-programs” paradigm, namely the existence of a realizability model where to extract programs from proofs. Finally, the authors wanted the theory to be appealing to standard mathematicians and therefore they wanted extensionality in the theory, e.g. to reason with quotient types and to avoid the intricacies of dependent types in intensional theories.
+
+
+
+\input{../document}
+\nocite{*}
+\input{../biblio}
+\end{document}

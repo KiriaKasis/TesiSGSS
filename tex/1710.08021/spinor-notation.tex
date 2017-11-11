@@ -1,0 +1,258 @@
+
+
+
+\chapter{Some technical computations}
+\pagestyle{fancy}
+	\fancyhead{} % cancella tutti i campi
+	\fancyhead[LE]{\scshape \leftmark}
+	\fancyhead[RO]{\scshape \rightmark}
+	\fancyfoot[CE,CO]{\thepage}
+	\fancyfoot[LO,RO]{ }
+	\fancyfoot[LE,RE]{ }
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+
+
+\section{Linearised Lagrangian  for the gauge field}
+
+Here we derive the expansions \eqref{LW-DF2-expansion} and \eqref{LW-FFF-expansion}.
+We are looking for an operator of the form \eqref{hk-fourth-order-generic}, so we will ignore total derivatives and $N$-like terms, that as discussed will not contribute to the divergence.
+
+
+
+\subsection{Expansion of the terms in the Lagrangian}
+
+
+Let us start with the first higher-derivative contribution
+\(\tr (\covD_\mu F_{\mu \beta} )^2  \).
+We start substituting the expansions  \eqref{ym-shift-covD} and \eqref{ym-shift-Fmunu} ad expand the square
+\begin{align*}
+\left(\covD_\mu F_{\mu \beta} \right)^2  
+& \rightarrow 
+	\left[
+		\left(
+			\covD_\mu + [A_\mu, \#]
+		\right)
+		\left(
+			F_{\mu \beta} 
+				+ 2 \covD_{ [ \mu } A_{ \beta ] }  
+				+ [A_\mu, A_\beta  ]
+		\right)
+	\right]^2
+	\\
+& \quad \simeq
+ 	\left(
+ 		[A_\mu , F_{\mu\beta}]
+ 	\right)^2
+ 	+ 
+ 	\left(
+ 		2 \covD_\mu \covD_{ [ \mu } A_{ \beta ] }
+ 	\right)^2 
+ 	+ 4 [  F_{ \mu \beta} , A_\mu ] \covD_\alpha
+%% 	\left(
+ 		 \covD_{ [ \alpha } A_{ \beta ] }
+%% 	\right)  
+ 	\\
+& \qquad  \quad	
+ 	+ 2 
+ 	\left(
+ 		\covD_\mu F_{\mu \beta} 
+	\right)
+ 	\covD_\alpha
+ 	\left(
+ 		[ A_\alpha , A_\beta ]
+ 	\right)
+	+ 4
+	\left( 
+		\covD_\mu F_{\mu \beta}
+	\right) 
+	[ A_\alpha^c  , 
+		\covD_{ [ \alpha } A_{ \beta ] } 
+	].
+\end{align*}
+Consider the two terms in the last line. The first one can be rewritten symbolically as \( A \cdot ( \covD(\#) ) \cdot A + \text{total derivate} \), hence it would only contribute to \( U \) with a total derivative; similarly, the second one contributes to \( N \). We therefore drop these terms from now on. 
+
+
+Taking the trace we can then write
+\begin{align}\label{LW1-expansion-intermediate}
+\begin{split}
+\left(\covD_\mu F^a_{\alpha\beta} \right)^2  
+& \rightarrow 
+ 	\left(
+ 		f^{abc}  F^b_{\mu \beta} A_\mu^c
+ 	\right)^2
+ 	+ 4
+ 	\left(
+ 		\covD^2 A^a_{ \beta  } - \covD_\mu \covD_{ \beta  } A^a_{ \mu  } 
+ 	\right)^2 
+%% 	\\
+%% &	
+%%\qquad \quad
+	+ 4 f^{abc} A^c_\mu F^b_{ \mu \beta} \left( \covD_\alpha
+ 		 \covD_{ [ \alpha } A^a_{ \beta ] }
+ 	\right)\\
+& \quad
+\simeq
+%
+(F_{\mu\beta} A_\mu)^2
++ 4 \left( \covD^2 A_{ \beta  } - \covD_\mu \covD_{ \beta  } A_{ \mu  } \right)^2
+%%\\
+%%& \qquad\quad
++ 4 A_\mu \cdot F_{\mu\beta} ( \covD_\alpha \covD_{[\alpha} A_{\beta]} )
+.
+\end{split}
+\end{align}
+where in the second step we have written the fields in the adjoint representation.
+The first and third terms are immediately rewritten as
+\begin{align*}
+\left(
+	F_{\mu \beta} A_\mu
+\right)^2
+& =
+	A_\alpha \cdot F_{\alpha \mu } F_{\mu \beta } A_\beta
+\end{align*}
+and
+\begin{align*}
+4  A_\mu \cdot F_{ \mu \beta} \covD_\alpha
+ 	 \covD_{ [ \alpha } A^a_{ \beta ] }
+& = 
+	2 A_\alpha \cdot F_{ \alpha \beta} \covD^2 A_{ \beta }
+ 	-
+ 	2 A_\alpha \cdot F_{ \alpha \mu } \covD_{ \beta } \covD_{ \mu } A_{ \beta },
+ 	\\
+%
+& = 
+	2 A_\alpha \cdot F_{ \alpha \beta} \covD^2 A_{ \beta }
+%% \\
+%% & \qquad	
+ 	-
+ 	2 A_\alpha \cdot F_{ \alpha \nu } \covD_{ \nu } \covD_{ \mu  } A_{ \mu }	
+ 	-
+ 	2 A_\alpha \cdot F_{ \alpha \mu } F_{ \beta  \mu } A_{ \beta }	,
+\end{align*}
+where we used \(\covD_\beta \covD_\mu = \covD_\mu \covD_\beta + F_{\beta\mu}\).
+Now we focus on the middle term, that needs some rearrangement. First we expand the square and we get, up to total derivatives,
+\begin{align*}
+\begin{split}
+\left(	\covD^2 A_{ \beta  } - \covD_\mu \covD_{ \beta  } A_{ \mu  } 	\right)^2 
+& =
+	A_\beta \cdot \covD^4 A_\beta
+%%\\
+%%& \qquad
+	- 2 A_\beta \cdot \covD^2 \covD_\mu \covD_\beta A_\mu
+	+ (\covD_\mu \covD_\beta A_\mu)\cdot (\covD_\nu \covD_\beta A_\nu)
+\end{split}
+\end{align*}
+and then we employ the following two relations, that can be proved with this kind of techniques,
+\begin{align}
+\label{LW1-expansion-tchanical-1}
+A_\beta \cdot \covD^2 \covD_\mu \covD_\beta A_\mu
+		& =	 A_\alpha \cdot F_{ \beta \alpha } \covD^2 A_\beta
+%%		 \\
+%%		& \phantom{0} \hspace{2em} \nonumber
+			- (\covD_\mu A_\mu) \cdot \covD^2 (\covD_\nu A_\nu ) 
+			+ 2 A_\alpha \cdot F_{ \mu \alpha } \covD_\mu  \covD_\beta A_\beta, 
+			\\
+\nonumber			\\
+(\covD_\mu \covD_\beta A_\mu)\cdot (\covD_\nu \covD_\beta A_\nu)	
+\label{LW1-expansion-tchanical-2}			
+		& = 	- (\covD_\mu A_\mu) \cdot \covD^2 (\covD_\nu A_\nu ) 
+%%		\\
+%%		& \phantom{0} \hspace{2em} \nonumber
+				+ 2 A_\alpha \cdot F_{\mu \alpha } \covD_\mu \covD_\beta A_\beta  
+				+ A_\alpha \cdot F_{ \alpha \mu } F_{ \mu \beta } A_\beta;
+\end{align}
+substituting them back in \eqref{LW1-expansion-intermediate} (and remembering the extra factor $-2$ for \eqref{LW1-expansion-tchanical-1}), we finally get
+\begin{equation}
+\begin{split}
+\left(\covD_\mu F_{\mu \beta}^a \right)^2  
+ \rightarrow 
+ 	A_\alpha \cdot &\delta_{\alpha \beta} \covD^4 A_\beta
+ 	 + (\covD_\mu A_\mu) \cdot \covD^2 (\covD_\nu A_\nu ) \\
+ 	& + 4 A_\alpha \cdot F_{ \alpha \beta} \covD^2 A_\beta
+ 	+ 4 A_\alpha \cdot F_{ \alpha \mu} F_{\mu \beta } A_\beta.
+\end{split}
+\end{equation}
+that is \eqref{LW-DF2-expansion}.
+
+
+
+
+We now consider the second higher-derivative term in the Lagrangian density \eqref{lagr-hdym}, that is the term cubic in the gauge field strength.
+Before writing the components explicitly, it is convenient to exploit the antisymmetry of $F_{\mu\nu}$  and the cyclicity of the trace to get
+\begin{equation}
+\tr  F_{\mu\nu} [ F_{\mu\lambda} , F_{\nu,\lambda} ]
+ = 
+2 \tr  F_{\mu\nu} F_{\nu\lambda} F_{\lambda \mu} .
+\end{equation}
+Computing expansion \eqref{ym-shift-Fmunu}, it is not difficult to take the contribution to the one-loop effective action. Indeed we have two kind of terms: one of the form $\sim F\ F\ [ A,  A] $ and the other with the structure $\sim \tr F\ \covD A\ \covD A$. The first one can be cast in the form
+\begin{equation}
+\begin{split}
+\tr  F_{ \mu \nu } F_{ \nu \lambda } [ A_\lambda , A_\mu  ]
+&	=
+\frac{1}{2}\tr [ F_{ \mu \nu } ,  F_{ \nu \lambda } ] [ A_\lambda , A_\mu  ]
+\\
+&	=
+\frac{1}{2}
+A^m_\lambda
+\left(
+F^a_{ \mu \nu }  F^b_{ \nu \lambda }  f^{abc} f^{mnc}
+\right)
+A^n_\mu ;
+\end{split}
+\end{equation}
+this contributes to $U$, but it is traceless (with respect to the gauge indices, \ie contracting $n$ and $m$). We can therefore ignore this contribution.
+
+The second contribution reads
+\begin{equation}\label{LW2-expansion-intermediate}
+\begin{split}
+\tr  F_{\mu\nu} [ F_{\mu\lambda} , F_{\nu,\lambda} ]
+& \rightarrow
+2  \tr 12  F_{\mu\nu} \covD_{[\nu} A_{\lambda]} \covD_{[\lambda} A_{\mu]}
+\\
+&  \quad =
+\tr 12  F_{\mu\nu} 
+\left[ 
+	\covD_{[\nu} A_{\lambda]} , \covD_{[\lambda} A_{\mu]}
+\right]
+\end{split}
+\end{equation}
+where in the equality we used the antisymmetry of $F_{\mu\nu}.$
+
+Computing the traces in \eqref{LW2-expansion-intermediate}, we then obtain
+\begin{align}
+f^{abc} F_{\mu\nu}^a F_{\mu\lambda}^b F_{\nu\lambda}^c
+	& \rightarrow 
+12 f^{abc} F^b_{\mu\nu} \covD_{[\mu} A^a_{\lambda]} \covD_{[\lambda} A^c_{\nu]} .
+\end{align}
+Expanding the antisymmetrizations of the second term, \eqref{LW2-expansion-intermediate} reads
+\begin{align*}
+\begin{split}
+f^{abc} F_{\mu\nu}^a F_{\mu\lambda}^b F_{\nu\lambda}^c
+ \rightarrow 
+ 6 & F^{ a b }_{\mu \beta}  ( \covD_{\mu} A_{\alpha} )^a ( \covD_{\alpha} A_{\beta} )^b
+ \\
+ & 
+ - 3 F^{ a b }_{\mu\nu} \delta_{ \alpha \beta } ( \covD_{\mu} A_{\alpha} )^a ( \covD_{\nu} A_{\beta} )^b- 3 F^{ a b }_{\alpha \beta} ( \covD_{\lambda} A_{\alpha} )^a ( \covD_{\lambda} A_{\beta} )^b
+\end{split}
+\end{align*}
+where we have also written the fields explicitly in the adjoint representation.
+
+Up to total derivatives and contributions from irrelevant terms, the previous expression becomes
+\begin{align}
+f^{abc} F_{\mu\nu}^a F_{\mu\lambda}^b F_{\nu\lambda}^c
+& 
+\rightarrow
+A_{\alpha}^a
+	\left[
+		3 F_{ \mu \nu } \delta_{ \alpha \beta }  
+		+  3 F_{ \alpha \beta} \delta_{ \mu \nu } 
+		- 6 F_{ \mu \beta }\delta_{ \alpha \nu } 
+	\right]^{ a b }
+	 \covD_{ \mu } \covD_{ \nu } A_{\beta}^b.
+\end{align}
+that is indeed in agreement with \eqref{LW-FFF-expansion}.
+
+
+
+

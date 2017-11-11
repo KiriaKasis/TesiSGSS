@@ -1,0 +1,17 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = ./thesis.tex
+
+\documentclass[12pt,a4paper,draft,openany,oneside,openbib]{report}
+ 	\input{./init}
+\begin{document} 
+\maketitle
+\tableofcontents
+
+
+\input{./intro}
+
+\input{./document}
+%\nocite{*}
+\input{./biblio}
+\end{document}

@@ -1,0 +1,131 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = ./thesis.tex
+
+\section{Higher Order Logic Programming}
+
+At the beginning of our work it was decided that the this project should be implemented using $\lambda$Prolog and ELPI, one of its implementations which allows for more flexibility (\eg optional type declarations) more functionality (\eg constraint programming, which will be useful in later phases of the project) and also improved performances compared to other major implementations of $\lambda$Prolog.
+
+As a programming language $\lambda$Prolog is naturally a good fit for a binder-heavy project like our as it natively offer all the functionality required to handle $\alpha$-equivalence, capture avoiding substitutions and higher-order unification; moreover the high level abstractions and backtracking allow for almost a 1-1 encoding of inference rules. As an example  below we can see the comparison between a natural deduction inference rule and a $\lambda$Prolog clause in the case of $\Pi$-Introduction.
+In natural deduction style we have the following inference rule
+\[
+\begin{prooftree}
+\hypo{C(x)\ set\ [x \in B]}
+\hypo{B\ set}
+\infer{2}[\ensuremath{\Pi}-F]{\Pi_{x\in B}{C(x)}\ set}
+\end{prooftree}\]
+while in $\lambda$Prolog we would write
+\begin{verbatim}
+ofType (setPi B C) KIND3 IE
+    :- ofType B KIND1 IE
+    ,  (pi x\ locDecl x B
+        => ofType (C x) KIND2 IE)
+    ,  pts_fun KIND1 KIND2 KIND3
+    .
+\end{verbatim}
+where \verb|ofType| represent the $set$ judgement, \verbl{locDecl} is used to locally introduce hypothesis in the context and \verb|pts_fun| is used to decide whether the produced type is a set or a collection. 
+
+While the $\lambda$Prolog version is more verbose it should be noted that this one rule encode the $\Pi$-Formation rule for both the extensional and the intensional level and also for all combination of arguments kinds between sets, collections, propositions and small proposition.
+
+\subsection{Changes to the calculus}
+As pointed out in the introduction before we could begin the implementation we had to apply some changes to the calculi exposed in \cite{maietti2009minimalist}.
+
+	\subsubsection{Syntax Directed Rules}
+	Between the rules of \emph{mTT} and \emph{emTT} there is a rule which states that equal type have the same elements, that is:
+	\[
+	\begin{prooftree}
+	\hypo{a \in A}
+	\hypo{A = B}
+	\infer2[conv]{a\in B}
+	\end{prooftree}
+	\]
+ 	
+ 	This rule is problematic from an implementation point of view since it can be triggered at any moment and (at the extensional level) would start a proof search trying to prove $A=B$ for a unknown $A$. A simple solution is to preemptively compose this rule to all other rule that might need it; for example we can see that the elimination rule for dependents products changes from 
+ 	\[
+ 	\begin{prooftree}
+	\hypo{f\in \Pi_{x\in B}{C(x)}}
+	\hypo{t \in B}
+	\infer2[\ensuremath{\Pi}-E]{\s{apply}(f,t)\in C(t)}
+ 	\end{prooftree}
+ 	\]
+ 	to 
+ 	\[
+ 	\begin{prooftree}
+ 	\hypo{f\in \Pi_{x\in B}{C(x)}}
+ 	\hypo{t \in B'}
+ 	\hypo{B=B'}
+ 	\infer3[\ensuremath{\Pi}-E]{\s{apply}(f,t)\in C(t)}
+ 	\end{prooftree}
+ 	\]
+ 	 the main difference being that in the syntax directed version we check that the domain type of $f$ and the inferred type of $t$ are convertible instead of requiring syntactic equality like in the original rule. In this way the power of the calculus is surely not increased as the syntax directed rule is admissible in the calculus with the two previous rules, indeed
+ 	\[\begin{prooftree}
+ 	\hypo{f\in \Pi_{x\in B}{C(x)}}
+ 	\hypo{t \in B'}
+ 	\hypo{B=B'}
+ 	\infer2[conv]{t \in B}
+ 	\infer2[\ensuremath{\Pi}-E]{\s{apply}(f,t)\in C(t)}
+ 	\end{prooftree}\]
+ 	is a derivation of the same judgement from the same hypothesis.
+ 	
+ 	For this change to be effective we also need to reformulate the conversion rules given by the calculi (\eg $\s{apply}(\lambda^B x. f,t) = f\{t/x\} $) in directed rules describing a reduction predicate $\rhd$ (\eg  $\s{apply}(\lambda^B x. f,t) \rhd f\{t/x\} $) from which we will define equality as reducibility to a common term, which is equivalent to the original equality given that both calculi of the Minimalist Foundation have both the property of Church-Rosser confluence and strong normalization. This new relation will be implemented by the predicate \verb|conv|.
+ 	
+ 	The full modifications to the calculi in our implementation with respect to making the rule syntax directed are mostly about checking for convertibility/equality where mTT/emTT require syntactical equality. We plan to provide a full proof of the validity of this modification, and also of the followings, in Abella in the future.
+	
+	
+
+\subsubsection{Informative Proof-terms at the Extensional Level and Exstensional Equality}
+	\[\begin{prooftree}
+	\hypo{b\in B}
+	\hypo{\s{true} \in C(b)}
+	\hypo{C(x)\ prop\ [x \in B]}
+	\infer3[\ensuremath{\exists}-\ensuremath{\text{I}}]{\s{true} \in \exists_{x\in B}{C(x)}}
+	\end{prooftree}\quad
+	\begin{prooftree}
+	\hypo{\s{true}\in \s{Eq}(A,a,b)}
+	\infer1[Eq-E]{a = b \in A}
+	\end{prooftree}\]
+	In the calculus emTT a token proof term $\s{true}$ is used to represent all proofs of propositions and small propositions; this poses problems during the interpretation when we need to construct intensional proof terms given only the token $\s{true}$. Moreover the strong elimination rule for the propositional extensional equality turns every conversion in an undecidable problem of general proof search for ${\s{true}\in \s{Eq}(A,a,b)}$.
+	To reasonably implement the extensional calculus and the interpretation we need a way to construct  intensional proofs from extensional proof and a way to contain the undecidability of the strong elimination rule for the extensional propositional equality.
+	
+	A first approach to the problem could have been to have both the extensional type checker and the interpretation work on full derivations; this is the method chosen by Maietti in \cite{maietti2009minimalist} and would solve the problems regarding the missing informations in the extensional calculus and language, but was discarded as a solution because from an implementation standpoint the code to encode a derivation would be almost a copy of the code needed to encode terms, yet with subtle, but non trivial, differences.
+	
+	The chosen solution was to both add informative proof terms to the extensional level and weaken the elimination rule of the propositional extensional equality. The first part of the solution makes the extensional rule for proposition more similar to the intensional ones 
+	\[
+	\begin{prooftree}
+	\hypo{b\in B}
+	\hypo{p \in C(b)}
+	\hypo{C(x)\ prop\ [x \in B]}
+	\infer3[\ensuremath{\exists}-\ensuremath{\text{I}}]{<b,_{\exists}\  p> \in \exists_{x\in B}{C(x)}}
+	\end{prooftree}
+	\]
+	so that during the interpretation more informations are available.
+	
+	The second part modifies the extensional propositional equality elimination rule to a weaker but equivalent form; the rule
+	\[
+	\begin{prooftree}
+		\hypo{\s{true}\in \s{Eq}(A,a,b)}
+		\infer1[Eq-E]{a = b \in A}
+	\end{prooftree}
+	\]
+	becomes
+	\[
+	\begin{prooftree}
+	\infer0[Eq-E]{a = b \in A\ [{\s{h}\in \s{Eq}(A,a,b)}]}
+	\end{prooftree}
+	\]	
+	This weaker form has nicer computational properties, the most important one being that it is always deterministic and terminating to check if it is possible to apply given a specific context while still allowing to locally definitions in a context via implication or dependents types.
+	
+	A drawback of this solution is that it is complex to use even simple lemmas; to this problem we offer two solutions: to manually use the cut elimination of the calculus or to introduce a new \emph{let in} construct \[\s{let}\ x\ :=\ t_1 \in T\ \s{in}\ t_2\] used to introduce locally typed definitions.
+	
+	As of this writing this \emph{let in} in not yet implemented as there many different ways the needed functionality can be obtained each with different compromises and it is not entirely clear which implementation method is the most adeguate to our project. In our simple cases it is acceptable to manually perform the cut elimination to locally include the desired lemma so we plan to implement a proper \emph{let in} once there is a strong need for it.
+
+\subsubsection{$\xi$-Rule}
+	Another difference between the calculus in Maietti's work and ours is that our model validates the $\xi$-rule at the intensional level, removing it would require a syntax directed rule for explicit substitution.	
+%\subsubsection{Code Reuse}
+%	As already hinted above when discussing some of the qualities of $\lambda$Prolog 
+
+\section{The Interpretation}
+	One of the main result of \cite{maietti2009minimalist} is a categorical proof of the validity of an interpretation of an extensional type theory into an intensional one. 
+	
+	In particular first a quotient model Q(mTT) is built on the theory mTT, this model is given as a category where objects are pairs of $(A, =_A )$ where A is an intensional type called support and \[ x =_A y \ props [x\in A,\ y \in A]\]
+	This is possible thank to a quotient model built on the extensional level where extensional types and terms are interpreted into dependents setoids. In this model a setoid is represented as a pair of an intensional type and a proposition 

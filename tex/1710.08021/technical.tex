@@ -1,0 +1,1388 @@
+%%
+%% \chapter{Technical topics}
+%%
+
+
+\chapter{Prolegomena}
+
+
+
+
+This Chapter is devoted to introducing the necessary technology to perform computations in quantum fields theory and to fix the relevant notation. We will mainly quote results from the literature and show how to use them to tackle problems of interest for this thesis; the reader interested in a more detailed and systematic derivation and mathematical theory is invited to check the references.
+
+The literature covering the basic aspects of Quantum Field theory is wide, and we will mainly refer to \cite{Peskin, Ram, WeinbergI, WeinbergII}.
+
+
+In this Chapter we consider Quantum Field Theories and the path integral in the Euclidean spacetime. This is done to slightly simplify the notation and to deal with a formally convergent functional integral. We will ignore the subtleties in the definition of the Wick rotations, or the insights that Euclidean QFTs might give in other contexts. 
+
+
+
+\section{Path integral in Quantum Field Theory}
+
+Let us consider a relativistic theory describing several local bosonic and fermionic fields. Bosonic scalar fields are described by real scalar functions
+\(
+\phi_i(x)
+\), being $i$ an index labelling the independent components; in this notation complex fields are represented through their real and imaginary part. Fermionic  fields are represented with complex Grassmann functions
+\(
+\psi_j(x)
+\) and their complex conjugate \(
+\bar \psi_j(x)
+\), again $j$ labelling independent fields. The fields might as well transform in some representation of a symmetry group, and therefore the functions $\phi_i$ or $\psi_j$ may carry other internal indices. We will consider vector fields as they arise when dealing with gauge theories.
+
+The dynamics of the system is determined assigning a Lagrangian density
+\begin{equation}
+\Lagr = \Lagr[\phi_i, \psi_j, \bar \psi_j],
+\end{equation}
+where we made explicit the functional dependence on the fields. The Lagrangian  depends also on derivatives of the fields themselves; usual theories contain, when suitably integrated by parts, up to second derivative of bosonic fields and first derivatives of fermionic ones. We will consider only local theories, namely theories for which $\Lagr$ depends  on one spacetime point only.
+
+
+\subsection{Generating functionals and the effective action} \label{basic-definitions}
+
+
+The main tool that we will be employing in order to study the quantum properties of field theories is the path integral. All properties of the system can be encapsulated in the generating functional, that for a Euclidean theory reads
+\begin{equation}\label{pi-generating-functional}
+Z[J, \eta, \bar \eta ]
+	=
+\int  \DD{\phi}  \DD{\psi}  \DD{\bar\psi} \exp\left[ { -\frac{1}{\hbar}\left\lbrace S[\phi^i, \psi_j, \bar \psi_j] - \Ssrc \right\rbrace } \right],
+\end{equation}
+where 
+\begin{equation}
+S[\phi_i, \psi_j, \bar \psi_j] := \int \dd{^4 x} \Lagr [\phi_i, \psi_j, \bar \psi_j](x).
+\end{equation}
+is the action of the system seen as a functional of the fields,
+\begin{align}
+\DD{\phi}  \DD{\psi}  \DD{\bar\psi} &:= \prod_i \DD{\phi_i}
+\prod_j \DD{\psi_j}
+\prod_{j'} \DD{\bar \psi_{j'}} ,
+\end{align}
+is the formal integration measure, and the source term reads
+\begin{align}
+\Ssrc
+	:=
+ \int  \dd{^4 x} J^i(x) \: \phi_i(x)
+ + \int  \dd{^4 x} \eta^i(x) \: \psi_i(x)
+ + \int  \dd{^4 x} \bar \psi_i(x) \: \bar \eta^i(x),
+\end{align}
+being $J^i$, $\eta^i$ and $\bar \eta^i$ generic sources.
+We assume here that the measure of the integral is normalized in such a way that the condition
+\(
+Z[0] = 1
+\) 
+is satisfied. We might also use the notation
+\begin{equation}
+J \cdot \phi = \int \dd{^4 x} J^i(x) \: \phi_i(x).
+\end{equation}
+
+
+In the rest of this Chapter we will restrict to the case of bosonic fields only; this simplifies the notation without significant loss of generality -- the main differences for fermions stem from the fact that it is necessary to distinguish between left and right differentiation because of anticommutativity. We will give the relevant results also when fermions are present.
+
+
+
+The path integral formalism provides, at least formally, a straightforward way to compute Green's functions. Indeed, they can  be obtained differentiating the functional $Z$ with respect to the sources; for instance, the $n$-point Green function can be expressed as
+\begin{equation}\label{pi-green-function}
+\braket{ 0 | T\left[ \phi_{i_1}(x_1)\cdot \ldots\cdot \phi_{i_n} (x_n) \right]  | 0 }
+	=
+%%{\hbar^n}
+\left.
+\frac{\delta^n Z[J] }{\delta J^{i_1}(x_1) \ldots J^{i_n}(x_n)}
+\right|_{ J = 0 }.
+\end{equation}
+%and the obvious modification when considering fermionic fields.
+%%Any observable that can be exressed as a linear combination of products of fields can be computed using such rule.
+%%The power of the path integral formulation relies on the fact that it gives a precise rule to compute averages of operators $F[\phi_i](x_1, \ldots, x_n) =  $ in a quantum field theory; introducing the vacuum states $\ket{\Omega, \pm}$ relative to the `past' ($-$) and the `future' ($+$), the quantum average is
+%%\begin{equation}
+%%\braket{F[\phi]} 
+%%	\equiv
+%%\frac{\braket{ \Omega, -  | T \left\lbrace F[\phi_i] \right\rbrace | \Omega, + }}{\braket{ \Omega, -|\Omega, + }}
+%%	=
+%%	\frac{\delta^n_L}{\delta J_{i_1}(x_1) \cdots \delta J_{i_n}(x_n)} Z[J]
+%%\end{equation}
+%%where $L$ indicates that the derivative acts from left and $T$ is the time ordering operator.
+Such Green's functions are known to be disconnected objects: Though describing physical processes, they do not turn out to be fundamental, at least from a  formal perspective. Their building blocks are the unfactorisable, \ie connected, components; they are generated by the functional $E[J,\eta,\bar \eta]$, given in terms of $Z$ by the relation
+\begin{equation}
+Z[J] = \exp\left(-\frac{1}{\hbar}E[J]\right).
+\end{equation}
+%%where $E$ is the generating functional of the connected Green function, in contrast with \eqref{pi-green-function} that contains also the disconnected components. 
+The $n$-point connected Green's functions are then
+\begin{equation}
+G^n_{i_1 \ldots i_n}(x_1,\ldots x_n) 
+	=
+	-
+\left. \frac{\delta^n E[J,\eta,\bar\eta] }{\delta J^{i_1}(x_1) \cdots \delta J^{i_n}(x_n)} \right|_{ J  = 0 }.
+\end{equation}
+%%again with immediate extension to when considering fermionic fields.
+
+An even more restrictive category of Green's functions is that consisting of one-particle irreducible functions. By this expression we mean those Green's function that remain connected after the elimination of one internal propagator.
+%% Let us now recall the definition of the quantum effective action. 
+To start with, consider the position
+\begin{equation}\label{bfq-classical-fields}
+\Phi_i(x)
+	:=
+- \frac{\delta E[J,\eta,\bar\eta]}{\delta J^i(x)}
+	=
+\frac{1}{Z[J]} \frac{\delta  Z[J] }{ \delta J^i(x) }  , 
+	\hspace{1.25em}
+%%\Psi_i(x)
+%%	:=
+%%\frac{\delta E[J,\eta,\bar\eta]}{\delta \eta^i(x)},
+%%	\hspace{1.25em}
+%%\bar \Psi_i(x)
+%%	:=
+%%\frac{\delta E[J,\eta,\bar\eta]}{\delta \bar \eta^i(x)}.
+\end{equation}
+that is the average value of the field in the presence of the current $J$,
+%% The fields \(\Phi\), \(\Psi\) and \(\bar \Psi\) are the vacuum expectation value of the fields in the presence of the sources, 
+often called the `classical' field. The relation \eqref{bfq-classical-fields} is assumed to be invertible, so that it can be used to define $J[\Phi]$ as a functional of some given configuration $\Phi$. $J[\Phi]$ is then the source term for which \eqref{bfq-classical-fields} holds. Such implicit definition is employed to define the quantum effective action functional \( \Gamma[\Phi] \) through functional Legendre transform
+\begin{equation}\label{pi-quantum-effective-action-definition}
+\Gamma[\Phi ]
+	=
+E[J ] + J  \cdot \Phi .
+\end{equation}
+An interesting property of \(\Gamma\) is that it generates the vertex functions, \ie the one-particle irreducible correlation functions, by differentiation; considering only the bosonic fields,
+\begin{equation}
+\Gamma_n^{i_1 \ldots i_n} (x_1, \ldots, x_n)
+	=
+\left.
+\frac{\delta^n \Gamma[\Phi ]}{\delta \Phi_{i_1}(x_1)
+	 \cdots \delta
+	 \Phi_{i_n}(x_n)}% \Gamma[\Phi, \Psi, \bar \Psi]
+\right|_{\Phi  =0}
+\end{equation}
+is the $n$-point one-particle irreducible Green's function.
+
+Let us now discuss some remarkable properties of the effective action. As a starting point, consider the relation \eqref{pi-quantum-effective-action-definition} and differentiate with respect to the classical field $\Phi$; simple algebra shows that 
+\begin{equation}\label{eff-act-quantum-eom}
+\frac{\delta \Gamma}{\delta \Phi_i} = J^i[\Phi] (x).
+%%\hspace{3em}
+%%\frac{\delta \Gamma}{\delta \Psi} = 0,
+%%\hspace{3em}
+%%\frac{\delta \Gamma}{\delta \bar \Psi} = 0.
+\end{equation}
+Considering free systems, \ie setting the current to zero, the previous relation shows that the the external fields $\Phi$ make $\Gamma$ stationary. This situation is analogous to the classical picture in which solutions of the classical equations of motion are stationary points of the action $S$ itself and if a driving force is present, the variation of the action is indeed proportional to it.
+
+A useful expression for $\Gamma$ is
+\begin{equation}\label{eff-act-scalar}
+\exp\left[{- \frac{1}{\hbar}\Gamma[\Phi]}\right] = \int \DD{\phi}  
+\exp \left[ -\frac{1}{\hbar} \left( S - \int \dd{^4x}  \frac{\delta \Gamma [\Phi]}{ \delta \Phi_i}  (\phi_i - \Phi_i)  \right) \right],
+\end{equation}
+obtained combining the definition \eqref{pi-quantum-effective-action-definition} and the expression for the generating functional \eqref{pi-generating-functional}.
+
+The effective action $\Gamma $ can be expanded in powers of $\hbar$, reading, at least as a formal expansion, 
+\begin{equation}\label{pi-hbar-expansion-effective-action}
+{\Gamma} =  \sum_L \hbar^L \Gamma_{(L)}
+=  S + \hbar \Gamma_{(1)} + O\left(\hbar^2\right)
+\end{equation}
+where $\Gamma_{(L)}$ is the $L$-loop contribution to the effective action. In particular, $S = \Gamma_{(0)}$ is the classical tree-level action and $\Gamma_{(1)}$ is the first quantum correction. A similar computation shows that the generating functional $E$ can be computed with the tree level diagrams generated by $\Gamma$, and according to \eqref{pi-hbar-expansion-effective-action} this is enough to take all the quantum corrections into account, at least perturbatively.
+
+The nomenclature of `loop' expansion originates from the diagrammatic approach to quantum field theory.
+Consider indeed any connected Green's function. Differentiating \eqref{pi-quantum-effective-action-definition} with respect to the sources one can express all the connected Green's functions using the vertex functions and propagators.
+Green's functions can then be represented with Feynman diagrams, where the propagator is represented by a line and vertex functions by vertices.
+
+ The relation between the number of vertices (including those connected to the sources) $V$, the number of propagators $I$  and the number of internal momenta $L$ is $L = I - V + 1$; since every vertex brings a factor of $\hbar^{-1}$ and every propagator comes with $\hbar$, the full diagram is of order $\hbar^{I-V} = \hbar^{L-1}$. Comparing with \eqref{pi-hbar-expansion-effective-action}, we can therefore recognise $\Gamma_{(n)}$ to be the $n$-loop vertex function.
+
+
+
+We have therefore seen that $\Gamma$ behaves in a way analogous to the classical action, can be computed in terms of a formal parameter $\hbar$ parametrizing the quantum effects and generates the one-particle irreducible Green's functions. These remarkable properties justify the name `quantum effective action'; more detailed discussions can be found in \cite{WeinbergII}.
+
+%% If one is interested in a perturbative evaluation of the quantum effects, \eqref{pi-hbar-expansion-effective-action} hints how to proceed. Indeed, performing the substitution $\phi \rightarrow \phi + \Phi$ in the generating functional \eqref{pi-generating-functional} and in the relation \eqref{pi-hbar-expansion-effective-action}, comparing the expression it is immediate to get that
+
+
+
+\subsection{The case of gauge theories}
+
+In this work we are mainly interested in studying gauge theories, whose  generating functional obtained from a na\"ive extension of \eqref{pi-generating-functional} is known to be ill-defined.
+
+In general the theory under consideration can be invariant under the action of some symmetry group $\GroupName{G}$, so that every field $\phi_i$ or $\psi_j$ transforms in a given representation of the group itself according to
+\begin{equation}\label{group-transformation}
+\begin{split}
+\delta \phi_i(x) & = \omega\: \phi_i(x)= \omega^a \: T_{(i)}^a \phi_i(x),
+\\
+\delta \psi_j(x) & = \omega\: \psi_j(x)= \omega^a \: T_{(j)}^a \psi_j(x)
+\end{split}
+\end{equation}
+where $T_{(i)}$ ($T_{(j)}$) are the generators of the representation under which $\phi_i$ ($\psi_j$) transforms and $\omega = \omega^a T^a_{(i,j)}$ is an element of the Lie algebra of $\GroupName{G}$. 
+
+
+This means that, generally speaking, every field is actually a multiplet of fields, enumerated by an internal extra index. In order to make the symmetry local and consider position-dependent transformations parametrised by  Lie~algebra-valued fields $\omega(x)$ in \eqref{group-transformation}, a gauge field connection must be introduced  to ensure covariance of derivative terms under gauge transformation. Explicitly, the minimal coupling prescription consists in the replacement 
+\begin{equation}
+\partial_\mu \rightarrow \covD_\mu = \partial_\mu + A_\mu,
+\end{equation}
+where $A_\mu$ is a Lie-algebra valued field acting on the representation in which the fields are transforming according to
+\begin{equation}\label{gauge-transf-A}
+\delta A_\mu = -\partial_\mu \omega + [\omega,A_\mu] = -\covD_\mu \omega
+\end{equation}
+where the covariant derivative is in the adjoint representation.
+After that, a kinetic term for $A_\mu$ can be considered in order to make gauge fields dynamical. The conventional kinetic term is
+\begin{equation}\label{kinetic-term-F}
+\Lagr_A = \frac{1}{2g^2} \tr F_{\mu\nu} F_{\mu\nu} 
+= -  \frac{1}{4 g^2} F^a_{\mu\nu} F^a_{\mu\nu}
+\end{equation}
+with
+\begin{equation}
+F_{\mu\nu} = [\covD_\mu,\covD_\nu] = \partial_\mu A_\nu - \partial_\nu A_\mu + [A_\mu, A_\nu]
+\end{equation}
+being the \ym{} field strength, or curvature tensor, associated to the covariant derivative $\covD_\mu$. Notice that the covariant derivative and the field strength  transform in the adjoint representation:
+\begin{align}
+\delta \covD_\mu = [\omega, \covD_\mu],
+\hspace{3em}
+\delta F_{\mu\nu} = [\omega, F_{\mu\nu} ].
+\end{align}
+
+
+The problem with the definition \emph{\`a la} \eqref{pi-generating-functional} lies in the redundancy of the description of the physical observables. Indeed, physical quantities are invariant under the action of the gauge group: this means that solutions of the equations of motions that differ by a gauge transformation should provide the same observable quantities. The path integral measure in \eqref{pi-generating-functional} ignores this redundancy in the description of the same physical system and the integration is performed over the infinite orbit of the action of the gauge group. A good definition of the path integral measure should therefore single out just one physical representative for the  fields of a given system.
+
+A solution to this issue consists in introducing a gauge-fixing condition $G[A](x)=\theta(x)$, where $G$ is some invertible non-gauge-invariant functional of the gauge field and $\theta$ is a function, and restricting the integration in \eqref{pi-generating-functional} to the fields satisfying such gauge condition. Up to a redefinition  of the normalization of the measure in \eqref{pi-generating-functional}, Faddeev and Popov have shown that a well-defined path integral is
+\begin{equation}\label{pi-generating-functional-gauge-intermediate}
+Z[J]
+	=
+\int  \DD{\phi} \DD{A} \det M[A] \: \delta(G-\theta)\exp\left[{-S +  S_{\text{sources}}} \right],
+\end{equation}
+with
+\begin{equation}\label{gauge-fixing-jacobian}
+\hat M[A](x,y) = M[A](x) \delta^{(4)}(x-y) = \left. \frac{\delta G[A^\omega] }{\delta \omega }\right|_{\omega=0} ,
+\end{equation}
+$M$ being a differential operator and $\delta(\, \cdot\,)$ a Dirac delta-like functional. The functional Jacobian determinant $\hat M$ is computed from the variation of the gauge fixing functional $G[A](x)$ with respect to a gauge transformation parametrized by the element $\omega(y)$. Internal indices of such determinant are therefore of the representation in which the gauge fields are.
+
+In the case of the \ym{} field, $M$ has therefore indices in the adjoint representation, and the transformation $A^\omega$ is \eqref{gauge-transf-A}.
+A common option for the gauge fixing is $G[A]=\partial_\mu A_\mu$; with these choices, the operator $\hat M$ reads 
+\begin{equation}\label{M-lorenz-gauge}
+\hat M[A] = \frac{\delta G[A](x)}{\delta \omega(y)} = - \partial_\mu \covD_\mu\delta(x-y) 
+\end{equation}
+and therefore $M = -\partial_\mu \covD_\mu$, with $\covD_\mu$ in the adjoint representation.
+
+Integrating \eqref{pi-generating-functional-gauge-intermediate} with the respect to the function $\theta$ with a Gaussian weight 
+\begin{equation}
+\sqrt{ \det H }\ \exp\left\lbrace -\int \dd{^4x} \tr \theta(x) \: H(x) \: \theta(x) \right\rbrace,
+\end{equation}
+$H(x)$ being a generic differential operator independent of the quantum fields, one gets the well-known expression for the generating functional for gauge theories
+\begin{equation}\label{pi-generating-functional-gauge}
+Z[J]
+	=
+\int  \DD{\phi} \DD{A}
+ \det M
+ \sqrt{ \det H }
+ \exp\left[{-\frac{1}{\hbar}( S_\tot  - \Ssrc)}\right].
+\end{equation}
+with
+\begin{equation}\label{Stot}
+S_\tot = S + \int \dd{^4 x} \tr G H G.
+\end{equation}
+
+
+Often in diagrammatic computations the determinants are represented by introducing ghost fields in the exponential, effectively modifying the Lagrangian density. We do not need to follow this paradigm, since we are interested only in the renormalization  properties and in Section~1.3 we will explain how to compute determinants directly looking at the form of the operators.
+
+The definitions given in the Section \ref{basic-definitions} and the results presented are naturally extended to the generating functional \eqref{pi-generating-functional-gauge}.
+In particular we have the definition
+\begin{equation}
+\mathcal{A}_\mu^a
+	=
+\frac{\delta E }{\delta J^{\mu a}}
+\end{equation}
+which brings us to the definition of the effective action $\Gamma[\Phi]$ as 
+\begin{equation}\label{eff-act-gauge}
+\begin{split}
+&\exp\left[{- \frac{1}{\hbar}\Gamma[\Phi,\mathcal{A}]}\right] =
+\\
+& \hspace{5em}
+\int \DD{\phi}   \DD{A} \det M \: \sqrt{\det H} \:  
+\exp \left[ -\frac{1}{\hbar}( S_\tot - \Ssrc ) \right],
+\end{split}
+\end{equation}
+where, with abuse of notation, the source term is intended
+\[
+\Ssrc = \int \dd{^4x}  \frac{\delta \Gamma [\Phi, \mathcal{A}]}{ \delta \Phi_i}  (\phi_i - \Phi_i) + \int \dd{^4x}  \frac{\delta \Gamma [\Phi, \mathcal{A}]}{ \delta \mathcal{A}^a_\mu }  (A^a_\mu - \mathcal{A}^a_\mu).
+\]
+
+
+
+%%%
+%%%
+%%%
+%%%\section{Background Field Method}
+%%%
+%%%In this Section we describe a convenient way to compute the effective action that will help to single out one-loop corrections. We will mainly follow BIB.
+%%%
+%%%The basic idea is that shifting the integration variable in \eqref{pi-generating-functional-gauge} allows one to effectively modify the Lagrangian density in order to single out relevant properties; this technique is called background field quantization.
+%%%
+%%%%%Thee one-loop correction is the correction of order $\hbar$ to the classical solution. We will therefore try to work perturbatively over a classical background in order to compute the first correction to it, but before going through the explicit computation we see some formal aspects of such expansion, formalised in the context of the background field quantization procedure.
+%%%%%The background field method provides a good method for computing the effective action. 
+%%% 
+%%%Let us start considering \eqref{pi-generating-functional-gauge} the generating functional for the disconnected Green's functions of a gauge theory and introduce a new generating functional shifting the (`quantum') fields $\phi_i$, $\psi_i$ and $A^a_\mu$ of an arbitrary background fields $\varphi_i$,  $\xi_i$ and  $B^a_{\mu}$ yet to be specified:
+%%%\begin{equation}\label{bfq-second-generating}
+%%%Z[J,\psi]
+%%%	=
+%%%\int \DD{\phi}  \DD{\psi}  \DD{A} \det\left[ \frac{\delta G[A^\omega_\mu, B_\mu] }{\delta \omega } \right]_{\omega=0}  e^{-S_\tot - \Ssrc }.
+%%%\end{equation}
+%%%with
+%%%\begin{equation}
+%%%S_\tot 
+%%%	=
+%%%S[ \phi_i + \varphi_i , \psi_j + \xi_j , B^a_\mu + A^a_\mu  ] 
+%%%+ \int \tr  G[A, B] \ H \  G[A, B] 
+%%%\end{equation}
+%%%begin the functional derivative of the gauge fixing term  computed considering the gauge transformation acting on the quantum fields only,
+%%%%\begin{equation}
+%%%\(
+%%%\delta A_\mu = (\partial_\mu + A_\mu + B_\mu ) \omega
+%%%\).
+%%%%\end{equation}
+%%%
+%%%
+%%%Define now the respective quantum effective action
+%%%\begin{equation}\label{bfq-definition-effective-action-modified}
+%%%\Gamma[\Phi,\Psi, \mathcal{A}; \varphi, \xi, B]
+%%%	=
+%%%E [J; \varphi, \xi, B] - J \cdot \Phi - \eta \cdot \Psi -  J_\mu \cdot B_\mu
+%%%\end{equation}
+%%%where the relation between $\Psi$ ad $J$ is given by the position
+%%%\begin{equation}\label{bfq-classical-field-modified}
+%%%\Psi^i(x) 
+%%%	:=
+%%%\frac{\delta E [J; \varphi, \xi, B] }{\delta J_i(x)} .
+%%%\end{equation}
+%%%
+%%%Consider now the partition function \eqref{bfq-second-generating} and shift the variable of integration \( \phi^i \rightarrow \phi^i - \psi^i \); the measure is invariant since \(\psi^i\) are just given functions and 
+%%%\begin{equation}\label{bfq-generating-functional}
+%%%Z[J, \varphi, \xi, B]
+%%%	=
+%%%Z[J] e^{-i J\cdot \psi}
+%%%\end{equation}
+%%%that implies, taking the logarithms, to 
+%%%\begin{equation}\label{bfq-generating-functionals-relation}
+%%%E[J,\psi]
+%%%	=
+%%%E[J] - J \cdot \psi.
+%%%\end{equation}
+%%%Differentiating \eqref{bfq-generating-functionals-relation} with respect to $J$ and using the definitions \eqref{bfq-classical-fields} and  \eqref{bfq-classical-field-modified} we get the relation
+%%%\begin{equation}
+%%%\Psi^i
+%%%	=
+%%%\Phi^i - \psi^i
+%%%\end{equation}
+%%%that applied to \eqref{bfq-definition-effective-action-modified} together with \eqref{bfq-generating-functionals-relation} allows us to find a relation between the two effective actions, \ie
+%%%\begin{equation}\label{bfq-effective-actions-relation}
+%%%\Gamma[\Psi, \psi]
+%%%	=
+%%%E[J] - J \cdot \psi - J \cdot ( \Phi - \psi )
+%%%	\equiv
+%%%\Gamma[\Phi]
+%%%	=
+%%%\Gamma[\Psi + \psi].
+%%%\end{equation}
+%%%Considering the particular case \(\Psi = 0\), the previous relation reads
+%%%\begin{equation}\label{bfq-effective-actions-relation-zeroquantum}
+%%%\Gamma[0,\psi]
+%%%	=
+%%%\Gamma[\psi]
+%%%\end{equation}
+%%%that provides a useful way to compute the effective action as $\Gamma[0,\psi]$.
+%%%
+%%%
+%%%Let us now comment briefly this result from a diagrammatic perspective. The quantum effective action
+%%%\(
+%%%	\Gamma[\Psi,\psi]
+%%%\)
+%%%is a conventional effective action computed in the presence a background field \(\psi\). 1PI Green's functions are generated by taking derivatives of
+%%%\(
+%%%	\Gamma[\Psi,\psi]
+%%%\) 
+%%%with respect to $\Psi$ and correspond to Feynman diagrams with as many external $\Psi$ lines as the number of derivatives; %% in the presence the background field $\psi$; 
+%%%\(
+%%%	\Gamma[0,\psi]
+%%%\)
+%%%has no dependence on $\Psi$, so that it generates graphs with no external lines. Therefore, \(
+%%%	\Gamma[\psi] = \Gamma[0,\psi]
+%%%\)
+%%%generates 1PI Green's functions in the presence of only the field $\psi$  in external lines. ELIMINARE QUESTO PARAGRAFO?
+%%%
+%%%One of the most important properties of the background field quantization method, is that it retains (formal) gauge invariance over the background field, at least for some gauge fixing $G$. In particular we choose
+%%%\begin{equation}\label{bfq-gauge-fixing}
+%%%G[A,B] = \left( \partial_\mu + B^a_\mu (T_\ad^a) \right) A_\mu \equiv D_\mu A_\mu;
+%%%\end{equation}
+%%%correspondingly, the functional determinant in the generating functional reads
+%%%\begin{equation}\label{bfq-jacobian-determiant}
+%%%\left. \frac{\delta G[A_\mu^\omega, B_\mu] (x) }{\delta \omega (y) } \right|_{\omega=0} 
+%%%	=
+%%%- \delta(x-y) D_\mu (D_\mu + A_\mu).
+%%%\end{equation}
+%%%
+%%%
+%%%With the gauge choice \eqref{bfq-gauge-fixing}, the background generating functional \eqref{bfq-generating-functional} is invariant under the transformation 
+%%%\begin{equation}\label{bfq-formal-gauge-background}
+%%%\delta B_\mu  = \partial_\mu  \omega - [\omega, B_\mu], 
+%%%\hspace{3em}
+%%%\delta J_\mu = - [\omega, J_\mu ]
+%%%\end{equation}
+%%%that is just a formal gauge transformation parametrized by the infinitesimal element $\omega$. To show this, perform a change of integration variable \(A_\mu \rightarrow A_\mu - [ \omega ,  A_\mu ] \); the combination of this operation and the transformation \eqref{bfq-formal-gauge-background} reads \( \delta(B_\mu + A_\mu ) = D_\mu \omega \). This is a gauge transformation for the whole field $A+B$, that leaves the action invariant; the gauge fixing $G[A,B]$ \eqref{bfq-gauge-fixing} transforms covariantly (and so the term $GHG$ does, provided $H$ transforms covariantly as well); the functional Jacobian determinant is invariant too, since the combination \( D_\mu + A_\mu \) in  \eqref{bfq-jacobian-determiant} transforms covariantly in the adjoint representation.
+%%%
+%%%From the invariance of $Z[J, \varphi, B] $ under \eqref{bfq-formal-gauge-background} , it follows that $\Gamma[\Phi, \mathcal{A}; \varphi, B]$ is invariant under
+%%%\begin{equation}
+%%%\delta B_\mu = D_\mu \omega,
+%%%\hspace{3em}
+%%%\delta \Phi_\mu = - [\omega, \Phi ],
+%%%\hspace{3em}
+%%%\delta \mathcal{A} = - [\omega, \mathcal{A}].
+%%%\end{equation}
+%%%The second and the third one are justified since $\Phi$ and $\mathcal{A}$ are conjugated to $J$ and $J_\mu$. The quantum effective action $ \Gamma [ 0, 0 ; \varphi, B]  = \Gamma [ \varphi , B]$ (remember \eqref{bfq-effective-actions-relation-zeroquantum}) is therefore invariant to the first transformation alone, but this is just a gauge transformation for the background field.   
+
+
+
+
+\section{One-loop effective action}
+
+
+
+
+In this section we exploit the formalism introduced to explain how it can be used to compute one-loop corrections. We identified the one-loop correction as the first nontrivial term in the expansion of the effective action $\Gamma$ in terms of $\hbar$; we will therefore expand the relevant quantities in order to get such contribution. This approach is discussed in a modern fashion but with different levels of depth in \cite{Avram, WeinbergII, Peskin}.
+
+We will do the explicit computations for the generating functional \eqref{eff-act-scalar} containing only scalar fields, only sketching  the solution for the general case with fermions and gauge fields.
+
+Expanding the effective action according to \eqref{pi-hbar-expansion-effective-action} in the expression \eqref{eff-act-gauge} and shifting the integration variables
+\begin{equation}\label{1lopp-generic-expansion-action-shift}
+\phi = \Phi + \sqrt{\hbar}\: \varphi,
+\end{equation}
+one can determine, order by order in $\hbar$, the quantum effective action $\Gamma$. At the lowest order in $\hbar$, this expansion can be understood as a semi-classical perturbation of a classical background $\Phi$, but it also encapsulates higher order corrections that can in principle be computed order by order in $\hbar$.
+Notice that
+\begin{equation}\label{1lopp-generic-expansion-action}
+\begin{split}
+S[\Phi + \sqrt{\hbar} \phi  ] 
+	& =
+S[\Phi]
+ + \sqrt{\hbar} \int \dd{^4x} \left. \frac{\delta S}{\delta \phi_i(x)} \right|_{\Phi} \varphi_i(x)
+\\
+&
+\quad   + \hbar \int \dd{^4 x} \dd{^4 y} \left. \frac{\delta^2 S}{\delta \phi_i(x) \delta \phi_j(y)} \right|_{\Phi} \varphi_i(x)  \varphi_j(y) + O(\hbar^{3/2})
+\end{split}
+\end{equation}
+where the functional derivatives of the action are evaluated at $\Phi$. The second term of this expansion is nonzero, since $\Phi$ makes $\Gamma$, and not $S$, stationary, so that ${\delta_\phi S}[\Phi]$ is of order $\hbar$ -- it could be then ignored in this expansion, however it cancels with the contribution from $\delta_\Phi \Gamma$ (yet they contribute to higher order effects).
+The left-hand-side of \eqref{eff-act-scalar} indeed gives, truncating the expressions at the relevant power of $\hbar$,
+\begin{equation}
+\exp\left[ - \frac{1}{\hbar}  S[\Phi] - \: \Gamma_{(1)}[\Phi]  \right]
+\end{equation}
+while the right-hand-side reads, thanks to the expansion \eqref{1lopp-generic-expansion-action}
+\begin{equation}
+\int \DD{( \sqrt{\hbar }\phi) }
+\exp\left[
+	- \frac{1}{\hbar} 
+		S[\Phi] - \int \dd{^4 x} \dd{^4 y} \left. \frac{\delta^2 S}{\delta \phi_i(x) \delta \phi_j(y)} \right|_{\Phi} \varphi_i(x)  \varphi_j(y)
+\right];
+\end{equation}
+the constant factor \(\exp[ -S[\Phi]/\hbar] \) simplifies between both sides of the expansion, and remembering the rule for functional integration over bosonic fields 
+\begin{equation}
+\int \DD{\phi} e^{- \phi \cdot \Delta \phi} = \frac{1}{\sqrt{ \det \Delta}},
+\end{equation}
+we arrive to the result
+\begin{equation}\label{1loop-generic-gauge+matter}
+\Gamma_{(1)}
+	=
+\frac{1}{2}\log \det \hat \Delta_\phi,
+\hspace{2.5em}
+\text{with}
+\hspace{2.5em}
+\hat \Delta_\phi:= \left. \frac{\delta^2 S}{\delta \phi_i(x) \delta \phi_j(y)} \right|_{\Phi}.
+\end{equation}
+
+The operator obtained differentiating twice the action in \eqref{1loop-generic-gauge+matter} is more easily obtained explicitly expanding the action, or rather the Lagrangian density, about the solution $\Phi$. Notice that $\Phi$ is really, in the absence of sources, a stationary `point' of the quantum effective action $\Gamma$. However, we can use any classical solution, \ie any stationary point of the action $S$, since the difference is of order $\hbar$ and thus resulting in higher-order corrections. For this reason, when choosing a background field configuration we can make considerations purely based on the classical equations of motion.
+
+It is easy to extend this result in order to include gauge fields, whose generating functional is \eqref{pi-generating-functional-gauge}. We assume here that the solution $(\Phi,\mathcal{A})$ provides an operator in \eqref{1loop-generic-gauge+matter} that does not mix fields with different spin. The operator for the gauge field is obtained differentiating the total action $S_\tot$ given in \eqref{Stot}; gauge fields are just bosonic fields so they contribute with another factor \(\sim 1/\sqrt{\Delta_A}\). The presence of a gauge symmetry, as we discussed, modifies the generating functional to \eqref{eff-act-gauge}, adding the contributions $\det M$ and $ \sqrt{ \det H} $. The former  does not contain any factor of $\hbar$, so it can be simply evaluated on the solution $\Phi$, being the difference of higher order (remember the shift \eqref{1lopp-generic-expansion-action-shift}), and we will write $M[\Phi] \equiv M_0$. The latter is independent on the quantum field.
+
+
+Fermionic contributions are slightly more delicate since in \eqref{1lopp-generic-expansion-action} the functional derivatives should be taken acting first on the right on $\psi_j$ and then on the left on $\bar \psi_j$. This is indeed natural when computing the expansion `by hand', since the rule for functional integration is
+\begin{equation}
+\int \DD{\psi} \DD{\bar \psi} e^{\bar \psi \cdot \Delta \psi} = {\det \Delta}.
+\end{equation}
+for complex Grassmann fields.
+
+Explicitly, the one-loop contribution to the quantum effective action for the theory defined by \eqref{pi-generating-functional-gauge} reads, considering also fermionic matter,
+\begin{equation}\label{eff-act-1loop-gauge}
+\Gamma_{(1)}
+	=
+\frac{1}{2} \log \frac{ (\det M_0 )^2 \det H \  \prod_j (\det \Delta_{\psi,j})^2 }{\det \Delta_A \ \det \prod_i \Delta_{\phi,i} }.
+\end{equation}
+Now that we have isolated the one-loop contribution, we set $h=1$.
+
+
+
+
+%% Inserting the expansion in powers of $\hbar$, using the fact that the difference between the solutions that stationarize $S$ and $\Gamma$ (\ie \Phi) coincide at the leading order (\ie no $\hbar$), This allows us to discard the contribution to the expansion that is first order in the quantum field.
+
+%%If we can choose the background solution in such a way that there is not any term in the expansion that mixes the fluctuation at the second order (\ie there is no term like $\phi \Delta \psi$), then fermionic and bosonic components decouple, and the integral can be performed, at least formally, remembering that Gaussian functional integrals satisfy
+%%\begin{equation}
+%%\int \DD{\phi} e^{\phi \cdot \Delta \phi} = \frac{1}{\sqrt{ \det \Delta}}
+%%\hspace{5em}
+%%\int \DD{\psi} e^{\psi \cdot \Delta \psi} = \sqrt{\det \Delta}
+%%\end{equation}
+%%for real and real Grassmann functions respectively.
+
+An important feature of the expansion \eqref{1lopp-generic-expansion-action-shift} is that the effective action $\Gamma$ obtained with this method can be constructed  so that it is invariant under (formal) gauge transformations of the background field. This can be done by choosing a proper gauge-fixing functional -- that might look like quite unusual in the conventional framework.  We stress here that it is not a `true' gauge transformation because the background field is not a dynamical variable, it is just an assigned function. The necessary condition for this invariance is that $H$ transforms covariantly in the adjoint representation under a gauge transformation of the background field.
+
+The shift of the gauge field can be explicitly written
+\begin{equation}\label{bfq-shift-gauge-field}
+A_\mu^a \to  \mathcal{A}_\mu^a + A_\mu^a 
+\end{equation}
+and the gauge fixing functional that allows for the desired property is
+\begin{equation}\label{bfq-gauge-fixing}
+G[A](x) = \covD_\mu A_\mu 
+	= (\partial_\mu + \mathcal{A}_\mu) ( A_\mu - \mathcal{A}_\mu ).
+\end{equation}
+where we used $\covD_\mu$ to denote the covariant derivative over the background field only. This will be done in the rest of the work as well: After the shift of the fields, implicit expressions such as $\covD_\mu$ and $F_{\mu\nu}$ are intended as functions of the background field only.
+The Jacobian determinant for such gauge-fixing reads
+\begin{equation}
+M[A] = - \covD_\mu (\partial_\mu + A_\mu);
+\end{equation}
+notice that $M$ is computed considering real gauge transformations on $A_\mu$.
+After the shift \eqref{bfq-shift-gauge-field}, the gauge-fixing becomes
+\begin{equation}
+G[A+ \mathcal{A}] = \covD_\mu( A_\mu + \mathcal{A}_\mu)
+ = (\partial_\mu + \mathcal{A}_\mu) A_\mu 
+\end{equation}
+and the Jacobian reads
+\begin{equation}
+M[A+\mathcal{A}] = - \covD_\mu (\partial_\mu + A_\mu + \mathcal{A}_\mu)
+	\equiv - \covD_\mu (\covD_\mu + A_\mu).
+\end{equation}
+
+
+We are interested in considering formal gauge transformations of the background field expressed in infinitesimal form by
+\begin{equation}\label{eff-action-gauge-inv-transf-bkg}
+\mathcal{A}_\mu \rightarrow \mathcal{A}_\mu -\covD_\mu \omega.
+\end{equation} 
+We want to prove the invariance of the right-hand-side of \eqref{eff-act-gauge} 
+In order to do this, we change the quantum field under integration according to 
+\begin{equation}\label{eff-action-gauge-inv-transf-quant}
+A_\mu \rightarrow A_\mu + [\omega, A_\mu];
+\end{equation}  
+we then get that the original shifted  field (according to \eqref{bfq-shift-gauge-field}) transforms as 
+\begin{equation}
+\delta (A_\mu +\mathcal{A}_\mu) = -\covD_\mu \omega + [\omega, A_\mu] = - \partial_\mu \omega + [\omega, A_\mu + \mathcal{A}_\mu].
+\end{equation}
+This is precisely a gauge transformation in terms of the field prior to the shift, and therefore the action $S[A+\mathcal{A}]$ is invariant under such transformation. Then, since \eqref{eff-action-gauge-inv-transf-quant} is a gauge transformation in the adjoint representation and \eqref{eff-action-gauge-inv-transf-bkg} implies that $\covD_\mu$ transforms in the adjoint representation too,  $G[A+\mathcal{A}] = \covD_\mu A_\mu  $ transforms covariantly in the adjoint and the same is true for $M$, whose determinant is therefore invariant. The invariance of the source term is apparent provided the sources transform in the same representation of the respective fields. As anticipated, if $H$ transforms in the adjoint representation, its determinant is invariant and therefore such are all terms in $S_\tot$. We conclude this paragraph observing that $M$ in (1.2.13) evaluated at the classical solution reads
+\begin{equation}\label{M0}
+M_0 = - \covD^2
+\end{equation}
+
+We just proved that background field method provides an effective action that is gauge invariant in the background field; this fact strongly constraints the terms that can appear in its expression. In particular we see that the one-loop correction in \eqref{1loop-generic-gauge+matter} is gauge invariant and therefore a limited number of local functions can be present in its expression.
+
+
+
+
+Notice that, since we are dealing with local theories only, the two-point operators $\hat \Delta(x,y)$ are actually diagonal in the spacetime coordinates and can be expressed in the form $\Delta_x\: \delta^{(4)}(x-y)$, being $\Delta_x$ a local differential operator. The determinant of $\hat \Delta$ therefore factorises in the determinant of the differential operator, depending on the background field, and the constant contribution of the delta function that we will ignore for it does not contribute to the divergence. For the integral over commuting variables to be convergent, we require $\hat \Delta$ -- or equivalently the differential operator $\Delta$ -- to be positive, that means 
+\begin{equation}
+\phi \cdot \hat \Delta \phi 
+	=
+\int \dd{^4 x} \dd{^4 y} \phi^*(x) \: \hat \Delta(x,y)  \: \phi(y)
+	=
+\int \dd{^4 x} \phi^*(x) \:  \Delta_x  \: \phi(x)
+	\geq
+0
+\end{equation}
+for any function $\phi$. Grassmann variables do not need such requirement since the exponential actually expands to a finite number of terms.
+
+
+
+\section{Renormalization}
+
+Let us go back to the expression \eqref{eff-act-1loop-gauge}. In the diagrammatic approach to Quantum Field Theory, the determinants can be evaluated considering loop processes. We will not follow this path, but let us just assume for now that we have some machinery that allows us to evaluate them, and that we similarly get divergent results. Let us also assume that we can parametrize the divergence with an ultraviolet cut-off $\Lambda$, and that the only relevant divergences are the logarithmic ones. 
+
+%%
+%%Bearing in mind this result, we are now ready to evaluate the divergent contribution of the one-loop quantum effective action. 
+%%Following the Wilsonian approach to renormalization, here we will consider only $\log \Lambda$-divergences for the computation of beta functions for the couplings. Applying elementary properties of logarithms and comparing the expansions, 
+
+
+The essence of the renormalization procedure is the redefinition of the coupling constants and wavefunctions in order to reabsorb the  divergent contributions.
+Suppose that the action contains a term that can be written in the form
+\begin{equation}\label{ren-classical}
+S = a_\cl S^0
+\end{equation}
+with \(a_\cl\) being a (bare) coupling constant and $S^0$ the spacetime integral of some local function of the fields. %The logarithmic divergence is given by the coefficient $A_2$; if the decomposition
+The quantum effective action up to order $\hbar$ is given by the sum of the tree-level contribution \eqref{ren-classical} and the one-loop term \eqref{eff-act-1loop-gauge}; if the divergent contribution coming from the latter has the same structure, namely can be written in the form
+\begin{equation}
+\Gamma_{(1)}^\Lambda =  - \frac{ \bar \beta }{ 16 \pi^2 }  S^0 \log \frac{\Lambda}{\mu},
+\end{equation}
+we can realise that the parameters of the bare Lagrangian do not correspond to measurable quantities, and therefore we conclude that, in order for the result to be finite as the physical system is, the bare parameters are actually divergent in such a way that they cancel the divergence.  We introduced the energy scale $\mu$ that has to appear for dimensional reasons.
+
+
+In the case that no wavefunction renormalization is necessary, the requirement of $S +\Gamma_{(1)}^\Lambda  $ to be finite in the limit $\Lambda \rightarrow \infty$ becomes a redefinition of the bare coupling to depend on \( \Lambda \) in such a way that the renormalized coupling is independent of it, but we allow for a possible dependence  on the scale \( \mu \). In formul\ae{}, we are requiring that the final result
+\begin{equation}
+S_{\text{ren}} \supseteq
+a_\mu S^0 = a_\Lambda S^0 - \frac{ \bar \beta }{ 16 \pi^2 } \ S^0  \log \frac{\Lambda}{\mu}
+\subseteq S + \Gamma_{(1)},
+\end{equation}
+where $a_\Lambda$ is the bare coupling, now depending on $\Lambda$, and $a_\mu$ is the renormalised coupling, is finite in the renormalised action $S_{\text{ren}} $.
+This brings us to the relation
+\begin{equation}\label{renorm-a}
+a_\mu = a_\Lambda  - \frac{ \bar \beta }{ 16 \pi^2 } \log \frac{\Lambda}{\mu}.
+\end{equation}
+In the case \( a = g^{- 2 } \), we obtain
+\begin{equation}\label{running-coupling}
+g^{- 2 }_\mu = g^{- 2 }_\Lambda  - \frac{ \bar \beta }{ 16 \pi^2 } \log \frac{\Lambda}{\mu};
+\end{equation}
+we can also express the running of the coupling by means of the  $\beta$-function
+\begin{equation}\label{beta-function-generic}
+\beta(g_\mu) = \mu \frac{\partial g_\mu}{\partial \mu} = - \frac{g_\mu^3}{32 \pi^2} \bar \beta.
+\end{equation}
+From now on, the dependence of the renormalized coupling constant $g_\mu$ on the scale $\mu$ will be understood.
+This discussion extends naturally to the case in which different couplings are present.
+
+%%In the presence of a gauge theory, or whenever more than only one kind of determinant is present in the effective action the expressions discussed up to now are easily modified to take into account al contributions. This is, for instance, the case of gauge theories, that have the Jacobian determinant factor in the generating functional \eqref{pi-generating-functional-gauge}.
+
+
+We have implicitly chosen a minimal subtraction scheme for the divergences: Indeed, one can rescale the bare coupling in \eqref{renorm-a} of also a finite quantity, but this is not of interest for our purposes.
+
+
+This procedure holds as long as no wavefunction renormalization is necessary; indeed, this turns out to be the case of interest for the present work since wavefunctions for gauge fields do not get renormalised. 
+This is a consequence of the fact that the effective action is gauge invariant with respect to the background field. This implies that the one-loop effective action $\Gamma_{(1)}$ is a gauge invariant expression of the background field too, and therefore it must be written as the trace of covariant expressions,  the only available with gauge fields being $\covD_\mu$ and $F_{\mu\nu}$. These are not homogeneous functions of the gauge field $A_\mu$: Rescaling such field of a  $Z_A$, one obtains
+\begin{equation}
+\covD_\mu \rightarrow \partial_\mu + Z_A A_\mu,
+\hspace{2em}
+F_{\mu\nu} \rightarrow Z_A (\partial_\mu A_\nu - \partial_\nu A_\mu) + Z_A^2 [A_\mu,A_\nu],
+\end{equation}
+but in order for the result to be gauge covariant they should be some combination of $\covD_\mu$ or $F_{\mu\nu}$, but this clearly implies $Z_A = 1$.
+
+
+
+We will now describe how to explicitly evaluate the divergent contribution for determinants of operators of interest.
+
+
+
+\section{The Heat Kernel method}
+
+
+We now define the Heat Kernel of a differential operator, and describe how this tool can be used to evaluate the determinants that appear in the expression for the one-loop effective action. Mathematical treatment for finding the Heat Kernel coefficients can be found in \cite{Vassilevich, gilkey} while for a more physically motivated procedure  the reader should consult \cite{dewitt, Fradkin:1981iu}.
+
+
+
+Let us consider the initial-value problem for the evolution under  $\Delta$, a positive self-adjoint differential operator  of order $r$ defined in $\mathbb{R}^4$, that might carry also internal indices, with a formal time $t$,
+\begin{equation}
+(\partial_t  + \Delta_x )u(x,t) = 0, \hspace{2.5em} u(x,0) = f(x)
+\end{equation}
+with $f(x)$ a given function. The solution to this problem can be formally written as
+\begin{equation}
+u(x,t) = e^{-t \Delta_x} f(x).
+\end{equation}
+An alternative expression for the solution can be given as the convolution with an operator  $K(t;x,y,\Delta)$
+\begin{equation}\label{hk-convol}
+u(x,t) = \int \dd{x} K(t;x,y,\Delta) f(y)
+\end{equation}
+provided that  $K$ satisfies  the differential equation
+\begin{equation}\label{hk-definition-heat-equation}
+(\1 \partial_t + \Delta)\indices{^i_j}K(t;x,y;\Delta)\indices{^j_k}
+	=
+0
+\end{equation}
+with the boundary condition
+\begin{equation}\label{hk-definition-boundary-condition}
+K(0;x,y;\Delta)\indices{^i_j}
+	=
+\delta\indices{^i_j} \delta(x-y).
+\end{equation}
+
+From \eqref{hk-convol}, writing $f(x) = \braket{x|f}$ where $\ket{x}$ is a set of eigenkets of the position operator, we see that we can express the heat kernel as
+\begin{equation}
+K(t;x,y;\Delta)
+	=
+\braket{x | e^{- t \Delta} | y }.
+\end{equation}
+
+%%%%%Another insightful expansion is given in terms of eigenfunctions of the operator $\Delta$. it is easy to verify that the Heat Kernel $K$ admits then the decomposition
+%%%%%\begin{equation}
+%%%%%K(t;x,y;\Delta) = \sum_n e^{-t \lambda_n}\ket{n} \bra{n},
+%%%%%\end{equation}
+%%%%%(the sum is formal and could be an integral in case of continuous spectrum) where the inner product between solution is as usual $\braket{m|n} = \int \dd{x} f_m^*(x) f_n(x)$.
+%%%%%Some more explicit expressions for the Heat Kernel will be given in a few paragraphs.
+
+
+We can now go a step further towards the definition of the determinant of the operator \( \Delta \) through the relations
+\begin{equation}\label{hk-logdet-definition}
+\log \det  \Delta = \tilde{\Tr}\, \log  \Delta  = \tilde{\Tr}\,\left[ - \int_0^\infty \frac{dt}{t} e^{- t \Delta} \right]
+\end{equation}
+where $\tilde \Tr$  is the trace over spacetime indices as well as internal ones.
+In order to understand the last equality recall that, being $\Delta$ self-adjoint, it admits a complete basis of eigenfunctions $\{\ket{n}\}_n$, where $f_n(x) := \braket{x |n}$ has eigenvalue $\lambda_n$, \ie
+\(
+\Delta f_n(x) = \lambda_n f_n(x)
+\); the operator in the square brakets then reads
+\begin{equation}
+\braket{x | \int_0^\infty \dd{t} \frac{e^{-t \Delta }}{t} | n } =
+\braket{x  | n }\int_0^\infty \dd{t} \frac{e^{-t \lambda_n }}{t}  
+=f_n(x) \log \lambda_n
+\end{equation}
+using the formal equality $\log \lambda = \int_0^\infty \dd{t} {e^{-t \lambda }}/{t}  $ up to an  infinite constant (indeed, one can `verify' this relation by differentiating $\lambda$).
+Computing then the trace over spacetime indices in \eqref{hk-logdet-definition}, we therefore obtain the sought relation
+\begin{equation}
+\log \det  \Delta =   - \Tr   \int_0^\infty \frac{dt}{t} \braket{x | e^{- t \Delta} | x} = -   \int_0^\infty \frac{dt}{t} \int \dd{^4x}\Tr  K(t;x,x;\Delta).
+\end{equation}
+This integral is in general divergent over in both limits. Since  $t$ has canonical dimension $ [t] = - r < 0$, and we are interested in studying the ultraviolet behaviour of the theories, we consider only the possible divergence in the lower bound.
+
+%%%%Since we want to define the determinant of the differential operator $\Delta$ also with respect to the spacetime indices, it is meaningful to consider also the trace with respect to those variables; this will lead us to a definition of the determinant itself. Such trace is then
+%%%%\begin{equation}\label{trK}
+%%%%\begin{split}
+%%%%\tilde{\Tr}\,  K
+%%%%	& :=
+%%%%\Tr K(t;x,y;\Delta) 
+%%%%	=
+%%%%\Tr \braket{x | e^{- t \Delta} | x }
+%%%%\end{split}.
+%%%%\end{equation}
+%%%%In order to evaluate this trace, recall that being $\Delta$ self-adjoint, it admits a complete basis of eigenfunctions $\{\ket{n}\}_n$, where $f_n(x) := \braket{x |n}$ has eigenvalue $\lambda_n$, \ie
+%%%%\(
+%%%%\Delta f_n(x) = \lambda_n f_n(x)
+%%%%\); then, inserting a set of completeness relation inside the braket in the expression of \eqref{trK} we obtain
+%%%%\begin{equation}\label{trK}
+%%%%\begin{split}
+%%%%\tilde{\Tr}\,  K
+%%%%	& =
+%%%%\sum_n \Tr \braket{x | e^{- t \Delta} (\ket{n}\bra{n}) | x }
+%%%%	=
+%%%%\sum_n e^{- t \lambda_n} 
+%%%%\end{split}
+%%%%\end{equation}
+%%%%assuming that the eigenfunctions are normalised. $\delta^i_i$ is the trace over internal indices.
+%%%%
+%%%%
+%%%%We can therefore \emph{define} the determinant of the operator \( \tilde \Delta \) through the relations
+%%%%\begin{equation}\label{hk-logdet-definition}
+%%%%\log \det \tilde \Delta = \Tr \log \tilde \Delta = - \int_0^\infty \frac{dt}{t} \Tr  \int K%(t;x,y;\Delta)
+%%%%\end{equation}
+%%%%with
+%%%%
+%%%%where $\tr$ is the trace over the index structure of the heat kernel $K$.
+%%%%
+%%%%
+%%%%The rationale behind this position is the formal equality $\int_0^\infty \dd{t} e^{-t\lambda}/t = \log \lambda$, up to an inessential infinite constant. Then, given an eigenfunction $\phi_\lambda(x)$ of the operator $\Delta$ with eigenvalue $\lambda$, $e^{-t\Delta}\phi_\lambda = e^{-t \lambda }\phi_\lambda$.
+
+%% For other types of operators the theory of heat kernels is less developed, but a number of results is known, that allow one to gain enough information for our purposes, at least for physically motivated cases.
+
+An asymptotic expansion for the trace of the heat kernel near $t=0^+$ is known in the general case of a self-adjoint differential operator of order $r$:
+\begin{equation}\label{hk-asymptotics}
+\Tr K( t ; x , x ; \Delta) 
+	\sim_{0^+}
+\sum_{k\geq 0} \frac{2}{(4\pi)^2 r} b_k(x) \ t^{{(k-4)}/{r}},
+\end{equation}
+where the so-called Seeley-deWitt coefficients $b_k$ can be expressed in terms of local invariants computed from the operator $\Delta$. The reason for the strange normalization will be clear later.
+We also introduce the definition
+\begin{equation}
+B_k( \Delta)
+	:=
+\frac{1}{(4\pi)^2}
+\int \dd{^4x}  b_k(x).
+\end{equation}
+
+
+Comparing the asymptotics \eqref{hk-asymptotics}  with \eqref{hk-logdet-definition} it is clear that the integral is indeed divergent at the lower bound. There are many ways to regulate it, such as dimensional or $\zeta$-function regularization; here we will simply introduce an explicit UV cut-off $\Lambda$, so that the divergent contributions read
+\begin{equation}
+\begin{split}
+\left( \log \det \tilde \Delta \right)_\Lambda 
+	& = 
+-
+%% \frac{1}{(4\pi)^2}
+\frac{2}{r}
+\int_{ (\Lambda/\mu)^{-r} } \frac{dt}{t} \sum_{ k \geq 0 } \left( \frac{t}{\mu^r} \right)^{ (k - 4)/r  } B_k(\Delta) \\
+	& =
+%%	- \frac{ B_0 }{ 2 } \Lambda^{4}
+	%% - {B_1} \Lambda^{2}
+	- 2 B_4 \log \frac{\Lambda}{\mu}
+	+ \ldots,
+\end{split}
+\end{equation}
+where we omitted power-law divergences. Notice that the $\log\Lambda$-divergence is given by the $b_4$ coefficient regardless of the order of the differential operator. This indeed gives the divergent contribution that we were looking for, and  therefore one can use the Heat Kernel method that we just described for finding the $\beta$ function. 
+
+
+
+
+Considering the effective action in \eqref{eff-act-1loop-gauge}, we can apply elementary properties of the logarithm function and we see that the overall coefficient for the logarithmic divergence in the effective action \eqref{eff-act-1loop-gauge} is
+\begin{equation}
+B^\tot_4 = \frac{1}{(4\pi)^2}\int \dd{^4 x} b_4^{\tot}(x)
+\end{equation}
+with
+\begin{equation}\label{b4-total}
+\begin{split}
+b_4^\tot = 
+%%\bigg[
+	b_4( \Delta_{A})
+	- 2 b_4( M_0)
+	-	b_4( H) 
+	- 2 \sum_j	b_4( \Delta_{\psi,j}) 
+	+ \sum_i 	b_4( \Delta_{\phi,i})
+%%\bigg].
+.
+\end{split}
+\end{equation}
+If the decomposition
+\begin{equation}\label{ren-1loop-contribution}
+B^\tot_4 \equiv \int \dd{^4 x } \frac{b^\tot_4(x) }{ 16 \pi^2 } = \frac{ \bar \beta }{ 16 \pi^2 }   S^0
+\end{equation}
+holds, then the divergences have the same structure of the terms already present in the Lagrangian, and the renormalization programme that we outlined in the previous Section can be carried out.
+
+
+After these formal considerations, the algorithm to compute one-loop corrections is clear: We start with any Lagrangian, then we expand it to the second order about a classical solution  and then we extract the operator and we evaluate the coefficient $b_4$. In the following pages we will obtain expression for such coefficient for operators of interest.
+
+
+
+
+\subsection{Determinants: Second order differential operators}
+
+
+
+Let us start by analysing convetional two-derivative theories containing only bosonic fields; these kind of operators can be treated almost explicitly and constitute the fundamental building block for evaluating all the other relevant cases.
+
+
+In order to understand the definition that we gave in the previous paragraphs, we start by considering a trivial case that can be worked out explicitly, that is the case of the scalar Laplacian $\Delta= -\partial_\mu\partial_\mu$ (the minus is added to ensure the positivity). It is easy to verify that the solution to the heat equation \eqref{hk-definition-heat-equation} is the family of Gaussian functions
+\begin{equation}\label{hk-laplacian}
+K \left( t;x,y; \Delta \right)
+	=
+\frac{1}{(4 \pi t)^{2}} \exp\left[ - \frac{(x-y)^2}{4t} \right].
+\end{equation}
+The expansion \eqref{hk-asymptotics} is then trivially given by $b_0 (x) = 1$ and $b_n(x) = 0$ for all other coefficients with $n\geq 1.$ 
+
+Let us move on to a more general case. The most general positive, self-adjoint, second order differential operator is
+\begin{equation}\label{generic-second-order-diff-op}
+\Delta_2 
+	=
+	- \covD^2 + X
+\end{equation}
+where $\covD_\mu$ is some covariant derivative\footnote{Notice that it might not be the obvious one: The expansion of the action could give also a contribution of the form $c_\mu \covD_\mu $ for some functions $c_\mu$, but such contribution can be reabsorbed introducing a new covariant derivative and redefining $X$.} and $X\indices{^i_j}(x)$ is a function, possibly dependent on the background field.
+
+Considering the explicit solution \eqref{hk-laplacian}, one could try to consider a power-law correction of the form
+\begin{equation}\label{hk-delta2-full-solution}
+K \left( t;x,y; \Delta \right)
+	=
+\frac{1}{(4 \pi t)^{2}} \exp\left[ - \frac{(x-y)^2}{4t} \right]
+\sum_{n \geq 0}
+	a_{n}(x,y) t^{n}
+;
+\end{equation} indeed, plugging this into the heat equation for the operator $\Delta$ we find a set of recursive differential equations between the coefficients that, in principle, one can solve. The algebra is quite lengthy but in principle doable $n$ by $n$;  comparing with the asymptotic \eqref{hk-asymptotics}, after some work one gets
+\begin{align}
+ b_0(x) &  = \Tr a_0(x,x) = \Tr \1
+\\
+ b_1(x) &  = 0 
+\\
+ b_2(x) &  = \Tr  a_1(x,x) = \Tr X
+\\
+ b_3(x) &  = 0 
+\\ \label{b4-second-order}
+ b_4(x) & = \Tr a_2(x,x) = \Tr \left[ \frac{1}{12} F_{\mu\nu} F_{\mu\nu}  + \frac{1}{2} X^2 \right], 
+\end{align}
+where \(F_{\mu\nu} = [ \covD_\mu , \covD_\nu ] \) is the curvature tensor associated to the covariant derivative in the representation under which the fields transform. For our purposes, $F_{\mu\nu}$ will be the gauge field strength tensor. 
+
+
+As we previously mentioned, we can also study  other kind of operators starting with the second order case. The key relation to study other operators is
+\begin{equation}\label{hk-determinant-composition}
+\det \left( \Delta_1\Delta_2\right)
+	=
+\det \Delta_1 \cdot \det \Delta_2,
+\end{equation}
+valid for any self-adjoint operators $\Delta_{1,2}$. Comparing the expansion \eqref{hk-asymptotics} and the relation \eqref{hk-determinant-composition}, we get a relation between the $b_4$  coefficients
+\begin{equation}\label{hk-a4-composition}
+b_4 \left( \Delta_1 \Delta_2 \right)
+	=
+b_4 \left( \Delta_1 ) + b_4( \Delta_2 \right)
+\end{equation}
+as it follows by applying the definitions and comparing the terms proportional to $t^0$. %% This relation clearly does not hold for the other coefficients.
+
+
+
+
+\subsection{Determinants: First order differential operators}
+
+An immediate application of \eqref{hk-a4-composition} is the computation of the $b_4$ coefficient for a first order differential operator, that is the case relevant when dealing with spinor fields.
+
+The most general first-order self-adjoint differential operators that can act on a two-dimensional Weyl spinor are
+\begin{equation}
+\Delta_1 :=  i \bar \sigma^{\nu\; \dot \alpha \beta}\covD_\nu,
+ \hspace{4em}
+\bar \Delta_{1} := - i 	\sigma\indices{^{\nu}_{ \alpha \dot \beta} } \covD_\nu.
+\end{equation}  
+Consider now the composition \( \Delta_{1+\bar 1} = \Delta_1 \cdot \bar \Delta_{1} \), that is, remembering \(\covD_\mu \covD_\nu =  \covD_{(\mu} \covD_{\nu)} + \frac{1}{2} F_{\mu\nu}\), and the definition \eqref{notation-gener-lorentz-spinor}
+\begin{equation}
+\left(\Delta_{ 1 + \bar 1 }\right)^{\dot\alpha}_{\dot \beta}
+=
+ - \delta^{\dot\alpha}_{\dot \beta} \covD^2
+			+ \frac{1}{2} \bar \sigma\indices{^{\rho \nu\; \dot \alpha}_{\dot\beta}} F_{\rho \nu}
+\end{equation}
+that has the structure of \eqref{generic-second-order-diff-op}, and therefore \eqref{b4-second-order} applies.
+Conversely, we then have
+%\begin{equation}
+\(
+\det \Delta_1 = \det \bar \Delta_{1}
+\)
+%\end{equation}
+since \( \det \varepsilon = -1\) and the relation between $ \sigma^\mu $ and $ \bar \sigma^\mu $ is \eqref{notation-sigma-matrices}, implying 
+\begin{equation}
+b_4 \left( \Delta_1  \right)
+=
+b_4 \left( \bar \Delta_{1} \right)
+=
+\frac{1}{2} b_4 \left( \Delta_{1+\bar 1} \right) .
+\end{equation}
+Performing the computation one gets
+\begin{equation}\label{b4-first-order}
+\begin{split}
+b_4(\Delta_1)
+& = \frac{1}{2} b_4(\Delta_{1+\bar 1})
+\\
+& =	\frac{1}{2}
+	\Tr \left[
+		+ \frac{1}{12} F_{\mu\nu} F_{\mu\nu}
+		+  \frac{1}{2} \left( \frac{1}{2} \bar \sigma\indices{^{\rho \nu\; \dot \alpha}_{\dot\beta}} F_{\rho \nu} \right)^2
+	\right]
+\\
+& =
+-	\frac{1}{6}
+	\tr \left[
+		  F_{\mu\nu} F_{\mu\nu}
+	\right]
+%% =
+%% 	 \frac{1}{6} C_{\psi,i} F_{\mu\nu}^a F_{\mu\nu}^a
+\end{split}
+\end{equation}
+where the identity \eqref{identity-spinor_trace-double-sigmamn-V} has been used.
+
+
+
+\subsection{Determinants: Fourth order differential operators}
+
+
+
+The kind of operators that we will be dealing with has the structure
+\begin{equation}\label{fourt-order-self-adjoint}
+\Delta_{4,\text{sf}} = \covD^4 + \covD_\mu  \mathcal{V}_{\mu\nu} \covD_\nu +  \mathcal{N}_\mu \covD_\mu + \covD_\mu \mathcal{N}_\mu  + \mathcal{U};
+\end{equation}
+where the derivatives act on everything at their right and the matrices of the gauge-covariant coefficients satisfy 
+\begin{equation} \label{fourth-order-symmetry-requirement}
+\mathcal{V}_{\mu\nu} = \mathcal{V}_{\nu\mu}, 
+	\qquad
+\mathcal{V}^T_{\mu\nu} = \mathcal{V}_{\mu\nu},
+	\qquad
+\mathcal{N}^T_{\mu} = - \mathcal{N}_{\mu},
+	\qquad
+\mathcal{U}^T = \mathcal{U},
+\end{equation}
+where superscript \( T \) indicates the transpose with respect to internal indices.
+This is the most general self-adjoint fourth-order operator without a term cubic in the covariant derivative. This is an important feature because this is the form of an operator that is obtained when composing two second order differential operators with the structure \eqref{generic-second-order-diff-op}.
+
+
+The requirement that the coefficient $b_4$ is a scalar and a local expression of mass dimension $4$ implies that it is the trace of some linear combination of \( F_{\mu\nu}F_{\mu\nu} \), \(  \mathcal{V}_{\mu\nu} \mathcal{V}_{\mu\nu} \), \( ( \mathcal{V}_{\mu\mu} )^2 \) and $\mathcal{U}$. Other possible invariants such as  \( \covD_\mu \mathcal{N}_\mu \) are total derivatives vanishing when integrated to get the trace in \eqref{hk-logdet-definition}. 
+%%A priori we therefore have
+%%\begin{equation}
+%%b_4(\Delta_4)
+%%	=
+%%\tr\left[
+%%	a F_{\mu\nu} F_{\mu\nu}
+%%	+ b \mathcal{V}_{\mu\nu} \mathcal{V}_{\mu\nu}
+%%	+ c (\mathcal{V}_{\mu\mu} )^2
+%%	+ d \mathcal{U}
+%%\right]
+%%\end{equation}
+This observation, and the comparison with the result for the composition suitably chosen second order operators using the rule \eqref{hk-a4-composition}, provides enough information to reconstruct
+\begin{equation}
+b_4(\Delta_{4,\text{sf}}) = \tr \left[
+	  \frac{1}{6} F_{\mu\nu}F_{\mu\nu}  
+	+ \frac{1}{24}\mathcal V_{\mu\nu} \mathcal V_{\mu\nu}  
+	+ \frac{1}{48} \mathcal V^2 
+	- \mathcal U 
+	\right].
+\end{equation}
+Also in this case the algebra is straightforward but lengthy; the computation is technical and we will not reproduce it here. 
+
+
+
+
+%% the operators \( \Delta_2 = \covD^2 + X \), \( \Delta_{2'} = \covD^2 + X' \), and then with the operators  \( \Delta_{\pm} = (\partial_\mu + A_\mu \pm Q_\mu)^2 \), such that \(Q^T_\mu = -Q_\mu\) transforms under the adjoint representation of the gauge group, \ie \(\delta_{\text{gauge}} Q_\mu = [\omega, Q_\mu]  \), one can find enough information 
+
+
+Notice that \eqref{fourt-order-self-adjoint} is not the natural expression for the operator that one obtains expanding a Lagrangian up to the quadratic order in the fluctuations. In that case, the natural form for the operator is
+\begin{equation}\label{hk-fourth-order-generic}
+\Delta_4 = \covD^4 + V_{\mu\nu} \covD_\mu  \covD_\nu +  2N_\mu \covD_\mu + U;
+\end{equation}
+with, again,
+\begin{equation}\label{hk-fourth-order-generic-coefficeints}
+{V}_{\mu\nu} = {V}_{\nu\mu}, 
+	\qquad
+{V}^T_{\mu\nu} = {V}_{\mu\nu},
+	\qquad
+{N}^T_{\mu} = - {N}_{\mu},
+	\qquad
+{U}^T = {U}.
+\end{equation}
+However, it is immediate to relate the coefficients with those of \eqref{fourt-order-self-adjoint}; it is easy to find that the difference is only given in terms of total derivatives, that do not contribute after the integration performed in \eqref{hk-logdet-definition}. It is therefore justified to use in our computations the expression
+\begin{equation}\label{b4-coeff-4order}
+b_4(\Delta_{4}) = \Tr \left[
+	  \frac{1}{6} F_{\mu\nu} F^{\mu\nu}  
+	+ \frac{1}{24} V_{\mu\nu} V_{\mu\nu}  
+	+ \frac{1}{48}  V^2 
+	-  U 
+	\right],
+\end{equation}
+slightly more immediate given an operator of the form \eqref{hk-fourth-order-generic}.
+
+As implicit in what we just said, $N_\mu$  does not enter into the computation, hence we will not consider its contribution in the expansion \eqref{hk-fourth-order-generic}.
+
+
+This method of computation allowed \cite{Fradkin:1981iu} to obtain for the first time this result.
+The interested reader can find the coefficient for a generic fourth order differential operator, with the $\sim \covD^3$ term, in \cite[p.~54]{Barvinsky:1985an}, however we will not need that result.
+
+
+
+
+\subsection{Determinants: Third order differential operators}
+
+
+This case is relevant for the spinor field operator with higher derivatives. The self-adjoint version of the relevant operator  is
+\begin{equation}\label{3rd-order-operator-generic}
+(\Delta_{3})_{\alpha \dot \beta} 
+=
+i \covD_\mu \sigma^\rho_{\alpha \dot \beta} \covD_\rho \covD_\mu
++
+\frac{i}{2} K^{\mu}_{\alpha \dot \beta} \covD_\mu
++
+\frac{i}{2} \covD_\mu K^{\mu}_{\alpha \dot \beta} 
++
+B_{\alpha \dot \beta}
+\end{equation}
+being $K^\mu$ and $B$ matrices with respect to internal indices and hermitian for all the indices. The determinant of such an operator can be obtained by the previous ones via composition with a suitable first order operator. Considering self-adjoint operators, defining \( \Delta_{3+1} = \Delta_3 \cdot \Delta_1 \), 
+given the leading symbol of \eqref{3rd-order-operator-generic}, a suitable choice is
+\(
+	\Delta_1 =  i \bar \sigma^{\nu\; \dot \alpha \beta}\covD_\nu
+\), whose determinant was evaluated in \eqref{b4-first-order}.
+Using \eqref{hk-a4-composition} once more, we can then find
+\begin{equation}\label{b4-coeff-3order-implicit}
+\begin{split}
+b_4(\Delta_3) & = b_4(\Delta_{3+1}) - b_4(\Delta_1) \\
+& =  b_4(\Delta_{3+1}) 
++	
+\frac{1}{6}
+	\tr \left[
+		  F_{\mu\nu} F_{\mu\nu}
+	\right]
+\end{split}
+\end{equation}
+
+The explicit evaluation of the operator \(\Delta_{3+1}\) does not yield an insightful  general formula because of the presence of the sigma matrices; it will be directly evaluated in the case of interest.
+However, a few comments are in order to make the computation slightly easier. Notice that, after the composition with the first order operator, the coefficient $B$ in \eqref{3rd-order-operator-generic} becomes the coefficient  \(N_\mu\) of \eqref{b4-coeff-4order}; since the latter effectively does not enter into the computation, we can discard the $B$-term in \eqref{3rd-order-operator-generic}, that will be systematically ignored from now on. Then, we can see that the operator \eqref{3rd-order-operator-generic} can be rewritten in the more natural  form
+\begin{equation}\label{3rd-order-operator}
+\Delta_{3}
+=
+i \sigma^\rho_{\alpha \dot \beta} ( \covD_\mu )^2 \covD_\rho 
++
+i \tilde K^{\mu}_{\alpha \dot \beta} \covD_\mu
+\end{equation}
+that, after the composition with $\Delta_1$, gives the same operator $\Delta_{3+1}$ of \eqref{3rd-order-operator-generic}.
+
+This kind of technique has employed for the first time to compute the determinant of higher-derivative spinor operators in \cite{Fradkin:1981jc}.
+
+
+
+\section{Examples}
+
+As a warm-up, before dealing with the higher-derivative  theories, we are now going to compute one-loop correction to the gauge sector of conventional \ym{} theories. In this way we will also show how to apply the rather abstract formalism discussed so far to concrete Lagrangians.
+%
+ We will consider the pure \ym{} case first, and then we will consider matter fields as well, specialising the final result to the $N=1$, $2$, $4$ supersymmetric extension. 
+
+
+We are interested in the renormalization of the \ym{} coupling $g$ that appears in front of the kinetic term for the gauge field \eqref{kinetic-term-F}. Since the quantum effective action is symmetric with respect to gauge transformations of the background field, all contributions must be (traces of) combinations of $F^{\mu\nu}$ and possibly $\covD_\mu$. As we discussed, these quantities are not homogeneous on the background field and no other internal parameter is present, so there cannot be any wavefunction renormalization. The procedure outline in Section~1.3 therefore applies.
+
+
+
+
+
+
+
+
+\subsection{Pure Yang-Mills}
+
+
+
+We consider the Yang-Mills Lagrangian in euclidean spacetime
+\begin{equation}\label{L-YM-abstract}
+\mathcal{L}_\YM 
+	=
+	- \frac{1}{2 g^2} \tr	F_{\mu\nu} F_{\mu\nu}
+	=
+	\frac{1}{4 g^2} F_{\mu\nu}^a F_{\mu\nu}^a
+\end{equation}
+where
+\(
+F_{\mu\nu} = [\covD_\mu, \covD_\nu]
+\)
+is the field strength tensor for the covariant derivative \( \covD_\mu = \partial_\mu + A_\mu \). We will use the gauge fixing functional defined in \eqref{bfq-gauge-fixing} to ensure formal gauge invariance of the effective action; we postpone the choice of the integration weight in order to show how it can be made to simplify the Lagrangian density.
+
+We now proceed expanding the Lagrangian around the background field configuration $B_\mu^a$, shifting the quantum field
+\begin{equation}\label{ym-shift-field}
+A_\mu \rightarrow A_\mu + B_\mu.
+\end{equation}
+We will make the quantum field $A_\mu$ explicit in all expressions; $\covD_\mu$ and $F_{\mu\nu}$ in the expanded Lagrangian are intended as functions of $B_\mu$ only.
+The covariant derivative and the field strength tensor transform according to
+\begin{equation}\label{ym-shift-covD}
+\covD_\mu  \rightarrow \covD_\mu + A_\mu,	 	
+\end{equation}
+and
+\begin{equation}\label{ym-shift-Fmunu}
+F_{ \mu \nu}  \rightarrow F_{\mu\nu} +  \covD_\mu A_\nu - \covD_\nu A_\mu + [A_\mu,A_\nu].
+\end{equation}
+%%where \( D_\mu \) and \( F_{\mu\nu} \) are functions of the background field \( A_\mu \) only. 
+%%In components the previous expressions read
+%%\begin{align}
+%%\label{basic-expansion-D}
+%%D^{ab} 			& 	\rightarrow  	D_\mu^{ab} + f^{amb} Q_\mu^m, \\
+%%\label{basic-expansion-F}
+%%F^a_{ \mu \nu} 	& 	\rightarrow  	F^a_{\mu\nu} + D_\mu Q^a_\nu - D_\nu Q^a_\mu  + f^{abc} Q^b_\mu Q^c_\nu	.
+%%\end{align}
+
+In order to determine the operator for the quantum fluctuation, we have to expand the Lagrangian keeping only quadratic contributions in $A_\mu$. Following the previous formul\ae{}, we get 
+\begin{equation}
+\begin{split}
+\left( F_{\mu\nu} \right)^2
+\rightarrow
+&
+\left( F_{\mu\nu} +  \covD_\mu A_\nu - \covD_\nu A_\mu + [A_\mu,A_\nu] \right)^2
+\\
+%
+& \simeq
+2 F_{\mu\nu} [A_\mu,A_\nu]  + 
+2 ( \covD_\mu A_\nu  )( \covD_\mu A_\nu ) - 2 ( \covD_\mu A_\nu  )( \covD_\nu A_\mu).
+\end{split}
+\end{equation}
+Performing the trace over gauge indices the previous expression reads
+\begin{equation}
+\begin{split}
+\left( F^a_{\mu\nu} \right)^2
+%
+& \rightarrow
+2 F^a_{\mu\nu} A^b_\mu A^c_\nu f^{abc} + 
+2 ( \covD_\mu A^a_\nu  )( \covD_\mu A^a_\nu ) 
+- 2 ( \covD_\mu A^a_\nu  )( \covD_\nu A^a_\mu).
+\end{split}
+\end{equation}
+and integrating by parts, dropping total derivatives,
+\begin{equation}\label{YM-operator}
+\left( F^a_{\mu\nu} \right)^2
+\rightarrow
+2  A^a_\mu   \left[
+  	- (\covD^2)^{ab} \delta_{\mu\nu}  
+  	+ (\covD_\mu \covD_\nu)^{ab} 
+	- 2 F^m_{\mu\nu} f^{amb} 
+  	\right]
+ A^b_\nu.
+\end{equation}
+It is convenient, in order to slightly simplify the expressions in the higher-derivative case, to adopt a compact notation; using the fact that the fields are in the adjoint representation, we can suppress the indices and write
+\begin{equation}\label{YM-operator-implicit-indices}
+\left( F^a_{\mu\nu} \right)^2
+\rightarrow
+2  A_\mu  \cdot \left[
+  	- (\covD^2) \delta_{\mu\nu}  
+  	+ (\covD_\mu \covD_\nu)
+	- 2 F_{\mu\nu} 
+  	\right]
+ A_\nu.
+\end{equation}
+
+The quadratic sector in the expanded Lagrangian density therefore reads
+\begin{equation}\label{L-YMquadr}
+\mathcal{L}_{\YM, A^2 } = \frac{1}{2 g^2} 
+ A^a_\mu   \left[
+  	- (\covD^2) \delta_{\mu\nu}  
+  	+ (\covD_\mu \covD_\nu) 
+	- 2 F_{\mu\nu}
+  	\right]^{ab}
+ A^b_\nu.
+\end{equation}
+
+It is now instructive to choose the gauge fixing functional $G$ and integration weight $H$.   As discussed, the convenient gauge choice in the framework of the background field quantization is
+\(
+{G}[A + \mathcal{A}] = \covD_\mu A_\mu
+\),
+with $H=  1/g^2.$ In this case \( \det H \) is trivial because it is independent of the fields and therefore can be reabsorbed in the overall normalization of the path integral measure; had we used any different weight we would have needed to take into account its contribution as well. The gauge fixing term can be written as, integrating by parts,
+\begin{equation}
+\int {G} H {G}
+	=
+- \int d^4x \frac{1}{2g^2} A_\mu^a \left( \covD_\mu \covD_\nu \right)^{ab} A^b_\nu.
+\end{equation}
+The contribution of $\det M_0$ must be taken into account, since, as computed in \eqref{gauge-fixing-jacobian}, $M_0= - \covD^2$ clearly depends on the background field.
+
+
+We are now ready to obtain the operator related to the gauge field, that is, following \eqref{Stot} or equivalently the total Lagrangian density \( \Lagr_{\YM,A^2} - GHG \)
+\begin{align}\label{ym-operator-ecplicit}
+(\Delta_A)_{\mu\nu}  = 	 	
+  	- (\covD^2) \delta_{\mu\nu}  
+  	- 2 F_{\mu\nu} ;
+\end{align}
+or, in terms of operators in the adjoint representation,
+\begin{equation}\label{ym-operator}
+\Delta_A =
+  	- \covD^2
+	- 2 F  .
+\end{equation}
+
+The coefficients of the determinants are ready to be evaluated; using \eqref{b4-second-order}, the gauge-fixed operator for the \ym{} field \eqref{ym-operator} contributes with
+\begin{equation}\label{b4-ym-operator}
+\begin{split}
+b_4( \Delta_A ) 
+& = 
+\Tr \left[ \frac{1}{12} F_{\mu\nu} F_{\mu\nu} \delta_{\alpha \beta} + \frac{1}{2} \cdot 4 \:  F_{\alpha\mu} F_{\mu \beta} \right]  
+\\
+& = 
+\tr \left[ \frac{1}{3} F_{\mu\nu} F_{\mu\nu} - 2  F_{\mu\nu} F_{\mu \nu} \right]
+\\
+&
+= \frac{5}{3} C_2 F^a_{ \mu \nu }F^a_{ \mu \nu }
+\end{split}
+\end{equation}
+where we used \eqref{notation-trFmunuFmunu}; the Jacobian $M_0$ contributes with (notice the different index structure)
+\begin{equation}\label{b4-M0-operator}
+b_4( M_0 )  =  \tr \left[ \frac{1}{12} F_{\mu\nu} F_{\mu\nu} \right] = - \frac{1}{12} C_2 ( F^a_{ \mu \nu } )^2 .
+\end{equation}
+
+
+The total coefficient introduced in \eqref{b4-total} (with the convention $b_4(H) = 0$) is easily evaluated and gives
+\begin{equation}
+b_4^{\tot} = \frac{11}{6} C_2 F^2
+\end{equation}
+and comparing with \eqref{running-coupling} and \eqref{beta-function-generic}, we get
+\begin{equation}
+\bar \beta = \frac{22}{3} C_2
+\end{equation}
+yielding the familiar result
+\begin{equation}
+g^{- 2 }_\mu = g^{- 2 }_\Lambda  - \frac{ {22 C_2}/{3}  }{ 16 \pi^2 } \log \frac{\Lambda}{\mu}.
+\end{equation}
+The $\beta$ function, according to \eqref{beta-function-generic}, reads
+\begin{equation}
+\beta_\YM = - \frac{g^3}{16 \pi^2} \cdot\frac{11}{3} C_2
+\end{equation}
+in agreement with the literature, as in \cite{Ram, WeinbergII}.
+The interpretation of this result is that the coupling $g$ diminishes with increasing scale $\mu$, and the first-order solution suggests $g \rightarrow 0$ as $\mu \rightarrow \infty$, that is asymptotic freedom. In contrast, for finite scale $\mu$ above a low-energy threshold, $g$ remains finite and the gauge field is self-interacting.
+
+
+\subsection{Yang-Mills fields with matter }
+
+
+The Euclidean Lagrangian describing the theory is
+\begin{align}
+\Lagr & = 
+\Lagr_\YM + \Lagr_{\phi} + \Lagr_{\psi}
+\end{align}
+with $\Lagr_\YM$ defined in \eqref{L-YM-abstract} and
+\begin{align}
+\Lagr_{\phi} &= \left( \covD_\mu \phi_i \right)  \left( \covD_\mu \phi_i \right),\\
+\Lagr_{\psi} &=  \psi_j \sigma^\mu \covD_\mu \bar \psi_j ;
+\end{align}
+again, we employ the gauge fixing condition
+\(
+{G}[A] = \covD_\mu ( A_\mu - \mathcal{A}_\mu )
+\)
+weighted with $ H =  1/g^2 $, whose determinant drops from the computation. The contraction of internal indices is understood. As we are going to comment, this is the most general Lagrangian density for the renormalization of the gauge coupling; it is interesting to notice that, since the matter fields appear just with their kinetic term, the $ \beta $ function is determined knowing only the field content of the theory.
+
+As we have already mentioned, the gauge invariance over the background field implies that it is enough to compute the divergence proportional to $F^2$. In order to do this, we can expand the Lagrangian about a solution with vanishing matter fields.  A consequence of this is that, even if we added a gauge invariant potential $V$ (\eg a Yukawa coupling)  it would not contribute to the term that is quadratic in the fluctuations, and therefore it would be ineffective for our purposes. 
+In formul\ae{}, the the expansion reads
+\begin{equation}\label{bkg-with-matter}
+A_\mu \rightarrow A_\mu + B_\mu ,
+\hspace{3.5em}
+\phi_i \rightarrow \phi_i,
+\hspace{3.5em}
+\psi_j \rightarrow \psi_j.
+\end{equation}
+The shift of the gauge field is therefore again \eqref{ym-shift-field}, and we will simply call the fluctuation of the matter field without changing symbol.
+
+
+The expansion is therefore relatively simple. The operator of the gauge fields was already obtained in \eqref{ym-operator};
+as far as matter fields are concerned, the Lagrangian is already quadratic in them, and therefore it is enough to evaluate the covariant derivatives on the background field. Up to total derivatives the the operator for scalar fields is obtained simply by integrating by parts,
+\begin{equation}
+\Delta_{\phi,i} = 
+	- \covD^2
+\end{equation}
+and that of spinors is obtained simply stripping spinor the fields, \ie
+\begin{equation}
+(\Delta_{\psi,j})_{\alpha\beta} = 
+	i \sigma^\mu_{\alpha\beta} \covD_\mu
+\end{equation}
+
+The relevant Seeley-deWitt coefficients for the \ym{} field and the gauge fixing contribution have already been evaluated in \eqref{b4-ym-operator} and \eqref{b4-M0-operator}. 
+Applying \eqref{b4-second-order} and \eqref{b4-first-order} we can immediately evaluate the coefficients for the matter fields, obtaining
+\begin{align}\label{b4-scalar-usual-der}
+b_4( \Delta_{\phi,i} ) & = - \frac{1 }{12}  C_{\phi,i} F^a_{\mu\nu} F^a_{\mu\nu}  
+\end{align}
+and
+\begin{align}\label{b4-scalar-higher-der}
+b_4( \Delta_{\psi,j} ) & = \frac{1}{6} C_{\psi,j} F_{\mu\nu}^a F_{\mu\nu}^a  .
+\end{align}
+The total coefficient reads
+\begin{align}
+b^{\tot}_4 & = 
+	b_4( \Delta_\YM ) 
+	- 2 b_4( M|_0 ) 
+	+  \sum_i b_4( \Delta_{\phi,i} )
+	- 2 \sum_j b_4( \Delta_{\psi,j} ) \\
+& =
+	F_{\mu\nu}^a F_{\mu\nu}^a  \left(
+	\frac{11}{6} C_2 
+	-   \frac{1 }{12} \sum_i C_{\phi,i}
+	-   \frac{1}{3} \sum_j C_{\psi,j}
+	\right)
+\equiv \frac{1}{4} F_{\mu\nu}^a F_{\mu\nu}^a  \bar \beta
+\end{align}
+and leads to
+\begin{align}\label{beta-ym-w-matter-generic}
+\beta(g) 
+= - \frac{g^3}{32 \pi^2} \bar \beta
+= - \frac{g^3}{8 \pi^2} \left(
+	\frac{11}{6} C_2 
+	- \frac{1 }{12} \sum_i C_{\phi,i}
+	- \frac{1}{3} \sum_j C_{\psi,j}
+	\right).
+\end{align}
+
+It is now interesting to compute the beta function in some relevant cases studied in the literature.
+
+Let us consider Quantum Chromodynamics (QCD) with $n_c$ colors. It is a theory of $n_f$ Dirac fermions in the same representation of the gauge group. There are therefore no scalars; then, $C_{\psi,j} = C_\psi$ that factorizes, and considering the doubling of the Weyl components in each Dirac spinor one gets $\sum_j C_j = 2 n_f C_j$. \eqref{beta-ym-w-matter-generic} therefore reads
+\begin{align}
+\beta(g) = \mu \frac{d g}{d	\mu} 
+= - \frac{g_\mu^3}{16 \pi^2} \left(
+	\frac{11}{3} C_2 
+	-  \frac{4}{3} n_f C_{\psi}
+	\right).
+\end{align}
+For an $\GroupName{SU}$-invariant theory, $C_2 = C_2(\GroupName{SU}(n_c)) = n_c$.
+This is the classical result usually computed with diagrammatic techniques; the coupling $g$ is asymptotically free for small number of fermions; on the other hand for big $n_f$, depending on the representation in which the spinors are, the one-loop result suggests the presence of a UV Landau pole.
+
+
+\subsection{Super-Yang-Mills}
+
+Let us specialise \eqref{beta-ym-w-matter-generic} to the supersymmetric case. Some details on supersymmetric theories in four specetime dimensions are given in Appendix B. In terms of $N=1$ supermultiplets, at our disposal we have the chiral multiplet (one complex scalar and one Weyl fermion) and the vector multiplet (one gauge field and one Weyl fermion); systems with extended supersymmetry can be represented using $N=1$ supermultiplets.
+
+\subsubsection{$\boldsymbol { N = 1} $ \sym}
+This is simply the vector multiplet: no scalar fields are present in this model, so formally $\sum C_{\phi,i} = 0 $; other than the gauge field, there is one Weyl fermion in the adjoint representation, so that $C_{\psi} = C_2$ and the final result is
+\begin{align}
+\beta(g) = - \frac{g^3}{8 \pi^2} \left(
+	\frac{11}{6} 
+	- \frac{1}{3}
+	\right)C_2 
+= - \frac{g^3}{16 \pi^2} 3C_2 .
+\end{align}
+
+\subsubsection{$\boldsymbol { N = 2 } $ \sym}
+The field content is one complex scalar, two Weyl fermions and the gauge field, hence in terms of $N=1$ superfields, this theory contains exactly the vector multiplet and the chiral multiplet. Being all the fields  in the adjoint representation,  $\sum C_{\psi,j} = 2 C_2 $ and since the complex field splits into real and imaginary components, $\sum C_{\phi,i} = 2 C_2$. Therefore,
+\begin{align}
+\beta(g) = - \frac{g^3}{8 \pi^2} \left(
+	\frac{11}{6}
+	- \frac{1 }{6} 
+	- \frac{2}{3}
+	\right) C_2 
+= - \frac{g^3}{8 \pi^2} C_2  .
+\end{align}
+
+
+\subsubsection{$\boldsymbol { N = 4} $ \sym}
+This theory describes three complex scalars, four Weyl fermions and the gauge field; that are three chiral multiplets and the vector rmultiplet.
+As usual, all fields are in the adjoint representation, so that $\sum C_\psi = 4 C_2 $ and $\sum C_\phi = 6 C_2$ obtaining the celebrated result
+\begin{align}
+\beta(g) = - \frac{g^3}{8 \pi^2} \left(
+	\frac{11}{6}
+	- \frac{1}{2}
+	-  \frac{4}{3}
+	\right) C_2 
+	= 0.
+\end{align}
+
+
+
+

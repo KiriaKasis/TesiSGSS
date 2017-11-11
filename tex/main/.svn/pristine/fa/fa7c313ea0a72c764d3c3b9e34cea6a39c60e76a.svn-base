@@ -1,0 +1,14 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+ 	\input{../init}
+\begin{document} 
+	\input{../document}
+	\tableofcontents
+	\section{title}
+	1\cite{martin1975intuitionistic}\citeyear{coquand1998realizability}
+	1\cite{mtt}\section{title}
+	\paragraph{title}
+	123123\cite{modmar} \nocite{*}
+	1\input{../biblio}
+\end{document}

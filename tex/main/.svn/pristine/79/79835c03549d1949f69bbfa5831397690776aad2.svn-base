@@ -1,0 +1,12 @@
+% !TeX document-id = {90a69205-2181-42b1-aba0-611de956c9f7}
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% !TeX root = build/main.tex
+
+\documentclass[12pt,draft,openany,oneside,openbib]{scrreprt}
+ 	\input{../init}
+\begin{document} 
+	\input{../document}
+	
+	\input{../biblio}
+\end{document}

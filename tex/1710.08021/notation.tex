@@ -1,0 +1,350 @@
+
+
+	\fancyfoot[CE,CO]{\thepage}
+	\fancyfoot[LO,RO]{ }
+	\fancyfoot[LE,RE]{ }
+\chapter{Notation}
+
+%%In this work we study relativistic quantum field theory in the Minkovsky spacetime metric $\tilde \eta^{\mu\nu} = \text{diag}(-,+,+,+)$.
+
+
+%%In this work we consider a field theory in Euclidean spacetime. 
+For definiteness of the functional integral we consider the Wick-rotated space with metric therefore
+\(
+\delta^{\mu\nu}
+= \1_4
+=
+\text{diag}(++++)
+\)
+.
+However, as we mentioned in the introduction, the Wick rotation is ill-defines for the higher derivative theories we study in this work. Such problems are not of interest for this thesis and this operation might be thought as a formal operation done to the theory defined in Minkovsky spacetime with metric \(\eta^{\mu\nu}=\text{diag}(-+++)\) to slightly simplify the notation. The formal differences between the two treatments is an overall sign in the Lagrangian density and factors of $i$ in the path integral formulation.
+Einstein's index convention applies otherwise stated.
+Our notation for spinors and supersymmetry is basically that of \cite{WB}.
+
+Considering gauge theories, the symmetry group will generically be indicated with $\GroupName{G}$ and assumed to be a compact Lie group. Its structure constants are
+\begin{equation}
+	[T^a,T^b] = f^{amb} T^m,
+\end{equation}
+where $T^a$ are a set of generators of any representation. 
+The generators \(t^a\) of the fundamental representation are normalized so so that \begin{equation}\label{notation-tr-generatord-fundam}
+\tr t^a t^b = - \delta^{ab}/2 ;
+\end{equation}  those of the adjoint representation have components
+\(
+(T_\ad^m)^{ab} = f^{amb}
+\).
+The normalization of any representation $R$ are normalized such that
+\begin{equation}
+\tr T_R^a  T_R^b = - C_R \delta^{ab} 
+\end{equation}
+defining the Casimir invariants $C_R$.
+In a given representation $R$ we will therefore have
+\begin{equation}\label{notation-trFmunuFmunu}
+\tr F_{\mu\nu} F_{\mu\nu}
+	=
+- C_R F_{\mu\nu}^a F_{\mu\nu}^a.
+\end{equation}
+The Casimir element for the adjoint representation $C_2$ can be expressed in terms of the structure constants as
+\begin{equation}
+f^{mna} f^{mnb} =  C_2 \delta^{ab}.
+\end{equation}
+We assume Einstein's convention to hold also for gauge indices.
+
+
+The gauge field $A_\mu$ induces in the minimal coupling prescription the covariant derivative
+\begin{equation}
+\covD_\mu = \partial_\mu + A_\mu
+\end{equation}
+and the field strength tensor reads
+\begin{equation}
+F_{\mu\nu} = [\covD_\mu, \covD_\nu]
+= \partial_\mu A_\nu - \partial_\nu A_\mu + [A_\mu , A_\nu ].
+\end{equation}
+The field strength tensor satisfy the Bianchi's identity
+\begin{equation}
+\covD_{[\mu} F_{\nu\rho]} = 0
+\end{equation}
+that can be used to prove the relation
+\begin{equation}\label{CovDF-dentity}
+2 \left( \covD_\mu F_{\mu\nu} \right)^2 
+	=
+\left( \covD_\mu F_{\nu\rho} \right)^2 
++ F_{\mu\nu} \left[ F_{ \nu \rho } , F_{ \rho \mu } \right].
+\end{equation}
+
+
+
+
+We will also employ natural units in which the speed of light $c$ and Planck's constant $\hbar$ are taken to 1. All quantities will then be measured in units of mass. The only exception is the first chapter, where Planck's constant is used as a formal parameter to study loop-expansions.
+
+
+
+The trace over gauge indices is $\tr$; $\tilde \tr$ is that on spinor indices and $\Tr$ indicates the trace over all indices after the symbol.
+
+
+
+
+
+\section[Spinors in \texorpdfstring{${d=4}$}{{{d=4}}} ]{Spinors in \texorpdfstring{$\boldsymbol{d=4}$}{{{d=4}}} }
+
+
+We use here two-component Weyl spinors $\psi^\alpha$.
+The conjugate spinor is \( \bar \psi^{\dot \alpha} := (\psi^\alpha)^* \) where \(*\) denotes complex conjugation.
+
+The antisymmetric tensors are
+\[ \varepsilon^{21} = \varepsilon_{12} = +1 ,
+\hspace{5em}
+%%\text{and}
+%%\hspace{5em}
+\varepsilon^{\dot 2 \dot 1} = \varepsilon_{\dot 1 \dot 2} = +1
+\]
+which moreover they satisfy
+\[
+\varepsilon_{\alpha\beta} \varepsilon^{\beta\gamma} = \delta^\gamma_\alpha,
+\hspace{5em}
+%%\text{and}
+%%\hspace{5em}
+\varepsilon_{\dot\alpha\dot\beta} \varepsilon^{\dot\beta\dot\gamma} = \delta^\gamma_\alpha
+.
+\]
+Sigma matrices read
+\begin{equation}\label{notation-sigma-matrices}
+	\sigma^\mu_{\alpha \dot\beta}
+		=
+	( \mathbbm{1} , \sigma^i )_{\alpha \dot \beta},
+\hspace{4em}
+%%\text{and}
+%%\hspace{4em}
+	\bar\sigma^{\mu\; \dot \alpha \beta}
+		=
+	( \mathbbm{1} ,  -\sigma^i )^{\dot \alpha \beta}
+		=
+	\varepsilon^{\dot \alpha \dot \beta}
+	\varepsilon^{\beta \alpha}
+	\sigma^\mu_{\alpha \dot \beta}
+\end{equation}
+Lorentz generators of the spinor representation are
+\begin{equation}\label{notation-gener-lorentz-spinor}
+\begin{split}
+	{\sigma^{\mu \nu \; }}\indices{ _{ \alpha} ^{{\beta}} }
+& =
+	 {\sigma^{[\mu}\bar\sigma^{\nu]}}%
+		\indices{ _\alpha ^\beta }
+=
+	\frac{1}{2} \left(
+				\sigma^\mu \bar \sigma^\nu
+				-
+				\sigma^\nu \bar \sigma^\mu 
+			\right)\indices{ _\alpha ^\beta },
+\\
+	{{\bar{\sigma}}}\indices{ ^{\mu \nu \; } ^{\dot \alpha} _{\dot{\beta}} }
+& =
+	 {\bar\sigma^{[\mu}\sigma^{\nu]}}
+		\indices{ ^{\dot{\alpha}} _{\dot{\beta}}}
+=
+	\frac{1}{2} \left(
+				\bar \sigma^\mu \sigma^\nu
+				-
+				\bar \sigma^\nu \sigma^\mu 
+			\right)\indices{ ^{\dot{\alpha}} _{\dot{\beta}}}.
+\end{split}
+\end{equation}
+
+
+The conventions for contracting spinor indices are
+\begin{equation}
+\psi \chi = \psi^\alpha \chi_\alpha,
+\hspace{5em}
+\bar \psi \bar \chi = \bar \psi_{\dot \alpha} \bar \chi^{\dot \alpha}.
+\end{equation}
+
+
+\subsection{Identities}
+For a comprehensive treatment of the two-component spinor notation we found \cite{Dreiner:2008tw} very useful. In our notation, we recall that the following identities hold. 
+\begin{align}
+\label{identity-1}
+\str \sigma^\mu \bar \sigma^\nu
+& 	= \str \bar \sigma^\mu \sigma^\nu 
+	=
+		- 2 \eta^{\mu\nu}
+\\
+\label{identity-2}
+(\sigma^{\mu\nu})\indices{_\alpha^\beta}
+&	=
+		\varepsilon_{\alpha\tau} \varepsilon^{\beta\kappa} 	
+ 			( \sigma^{\mu\nu} )\indices{_\kappa^\tau}
+\\ 
+\label{identity-3}
+\sigma^{\mu}_{\alpha\dot\alpha} \bar\sigma^{\dot \beta \beta}_\mu 
+&	=
+	-	2 \delta_\alpha^\beta\delta^{\dot\beta}_{\dot\alpha}
+\\
+\label{identity-4}
+\sigma^{\mu\; \alpha\dot\alpha} \sigma_\mu^{ \beta \dot \beta}
+&	=
+	-	2\varepsilon_{\alpha\beta}\varepsilon_{\dot\alpha\dot\beta}
+\\
+\label{identity-5}
+\bar \sigma^{\mu\;\dot \alpha\alpha} \bar\sigma^{\dot \beta \beta}_\mu 
+&	=
+	-	2\varepsilon^{\alpha\beta}\varepsilon^{\dot\alpha\dot\beta}
+\\
+\label{identity-6}
+[\sigma^{(\mu} \bar\sigma^{\nu)}]\indices{_\alpha^\beta}
+&	=
+	-	\eta^{\mu\nu} \delta^\beta_\alpha
+\\
+\label{identity-7}
+[\bar \sigma^{(\mu} \sigma^{\nu)}]
+	\indices{^{\dot \alpha}_{\dot \beta}}
+&	=
+	-	\eta^{\mu\nu} \delta^{\dot\alpha}_{\dot\beta}
+\\
+\label{identity-8}
+\str \sigma^{\mu\nu} \sigma^{\tau\kappa}
+&	= 
+		-4 \left( \eta^{\mu\tau} \eta^{\nu\kappa}
+			-	\eta^{\mu\kappa} \eta^{\tau\nu}
+			- i \varepsilon^{\mu\nu\tau\kappa}
+			\right)
+\\
+\label{identity-9}
+\str \bar \sigma^{\mu\nu} \bar \sigma^{\tau\kappa}
+&	= 
+		-4 \left( \eta^{\mu\tau} \eta^{\nu\kappa}
+			-	\eta^{\mu\kappa} \eta^{\tau\nu}
+			+ i \varepsilon^{\mu\nu\tau\kappa}
+			\right)
+\end{align}
+In particular that the last two identities imply
+\begin{equation}\label{identity-spinor_trace-double-sigmamn}
+\Tr{F_{\mu\nu} F_{\tau\kappa}}
+		\sigma\indices{^{\mu \nu}} 
+		\sigma\indices{^{\tau \kappa}} 
+	=
+\tr{F_{\mu\nu} F_{\tau\kappa}}
+\str		\sigma\indices{^{\mu \nu}} 
+		\sigma\indices{^{\tau \kappa}} 
+	=
+	- 4 \tr F_{\mu\nu} F^{\mu\nu}
+\end{equation}
+and
+\begin{equation}\label{identity-spinor_trace-double-sigmamn-V}
+\Tr{F_{\mu\nu} F_{\tau\kappa}}
+		{\bar \sigma}\indices{^{\mu \nu}} 
+		{\bar \sigma}\indices{^{\tau \kappa} }
+		=
+\tr{F_{\mu\nu} F_{\tau\kappa}}
+\str	{\bar \sigma}\indices{^{\mu \nu} } 
+		{\bar \sigma}\indices{^{\tau \kappa} }
+	=
+	- 4 \tr F_{\mu\nu} F^{\mu\nu}.
+\end{equation}
+
+
+
+\section[Supersymmetry in \texorpdfstring{${d=4}$}{{{d=4}}} ]{Supersymmetry in \texorpdfstring{$\boldsymbol{d=4}$}{{{d=4}}} }
+
+The Poincar\'{e} algebra, consisting of generators of translations $P_\mu$ and Lorentz transformations $M_{\mu\nu}$  reads
+\begin{align}
+\label{susy1}
+[M_{\mu\nu}, M_{\rho \sigma}] &= 
+- i \eta_{\mu\rho} M_{\nu\sigma}
+- i \eta_{\nu\sigma} M_{\mu\rho}
++ i \eta_{\mu\sigma} M_{\nu\rho}
++ i \eta_{\nu\rho} M_{\mu\sigma} 
+\\
+[M_{\mu\nu} , P_\rho]
+&  =
+-i \eta_{\rho\mu}  P_\nu + i \eta_{\rho\nu} P_\mu.
+\end{align} 
+The supersymmetric extension, in the cases of vanishing central charge, is
+\begin{align}
+\label{pedissequo0000}
+[M_{\mu\nu}, Q^i_\alpha] 
+& = i {\sigma}\indices{_{\mu\nu \, \alpha}^\beta} Q^i_\beta
+\\
+[M_{\mu\nu}, \bar{Q}_{i}^{\dot \alpha}] 
+&  = i {\bar{\sigma}}%
+\indices{_{\mu\nu \,} ^{\dot{\alpha}}_{\dot{\beta}}} \bar Q_{i}^{\dot{\beta}}
+\\
+\label{pedissequo}
+\{Q^i_\alpha , \bar{Q}_{j \dot \beta} \} & = 2 \sigma^\mu_{\alpha \dot{\beta}}
+P_\mu \delta^{i}_j,
+\end{align}
+where $Q^i_\alpha$ are the supercharges, with $i$ being the $R$-symmetry index and $\alpha$ the spinor index; $(Q^i_\alpha)^\dagger = \bar Q_{i\dot\alpha}$.
+
+The covariant derivatives read
+\begin{equation}
+\covDs_{\alpha i} = \frac{\partial}{\partial \theta^{\alpha i}}
++ i \sigma^\mu_{\alpha\dot\alpha} \bar\theta^{\dot \alpha}_i \frac{\partial}{\partial x^\mu},
+\hspace{3em}
+\bar \covDs_{\dot \alpha}^i = - \frac{\partial}{\partial \bar{\theta}^{\dot \alpha}_i}
+- i \theta^{\alpha i } \sigma^\mu_{\alpha \dot\alpha} \frac{\partial}{\partial x^\mu};
+\end{equation}
+they commute with the generators $Q$, $\bar Q$ and  satisfy the algebra
+\begin{equation}
+\{
+\covDs_{\alpha i},
+\bar \covDs_{\dot \alpha} ^ i\}
+=
+ - 2 \delta_i^j \sigma^\mu_{\alpha \dot \alpha} \, \partial_\mu.
+\end{equation}
+
+
+The $N=1$ relevant supermultiplets are the chiral and the gauge one. For the latter, the degrees of freedom can be collected into the gauge superfield
+\begin{equation}\label{wz-V}
+V(x,\theta,\bar\theta) = - \theta \sigma^\mu \bar \theta A_\mu(x) + i (\theta\theta\bar \theta\bar\lambda(x) - \bar \theta\bar \theta\theta\lambda(x))
++ \frac{1}{2} \theta \theta \bar \theta \bar \theta D(x)
+\end{equation}
+that can be used to define the superfield strength
+\begin{equation}
+W_\alpha = - \frac{1}{4} \bar \covDs \bar \covDs \left( e^{-V} \covDs_\alpha e^V \right).
+\end{equation}
+The action can then be written as
+\begin{align}\label{N1sym-4d}
+S^{N=1}_{\SYM}
+& = \frac{1}{2}
+\int \dd{^4x} \dd{^2\theta}\tr [ W W + \text{h.c.}]
+=
+\int \dd{^4x}
+\Lagr^{N=1}_\SYM
+\\
+\Lagr^{N=1}_\SYM
+&=
+\tr
+\left[
+\frac{1}{2} F_{\mu\nu} F^{\mu\nu} + 2 i \bar \lambda \bar \sigma^\mu \covD_\mu  \lambda -  D^2
+\right]
+\end{align}
+with $F_{\mu\nu} = [\covD_\mu, \covD_\nu]$, $\covD_\mu $ being in the adjoint representation.
+We also recall that the Wick-rotated Lagrangian, with a suitable rescaling of the fields, can be written as
+\begin{align}
+\label{lagr-N1sym-4d}
+\Lagr^{N=1}_\SYM
+&=
+-
+\frac{1}{g^2}
+\tr
+\left[
+\frac{1}{2} F_{\mu\nu} F^{\mu\nu} + 2 i \bar \lambda \bar \sigma^\mu \covD_\mu  \lambda -  D^2
+\right]
+\end{align}
+
+
+
+In the Abelian case the superfield strength reads
+\begin{equation}
+W_\alpha = - \frac{1}{4} \bar \covDs \bar \covDs \covDs_\alpha V 
+\end{equation}
+and the Lagrangian for super-Maxwell theory is
+\begin{align}
+\label{lagr-n=1-smaxwell}
+ \Lagr^{N=1}_{\text{sM}} &=
+-\frac{1}{4} F_{\mu\nu} F^{\mu\nu} - i \bar \lambda \bar \sigma^\mu \partial_\mu  \lambda + \frac{1}{2} D^2
+\end{align}
+with $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu.$
+
+The gauge theory with extended supersymmetry can be realised by adding to \eqref{N1sym-4d} one or three $N=1$  chiral multiplets in the adjoint representations of the gauge group, with the correct coefficients in order to have the required $R$-symmetry between spinors and scalars.
+
+
+
