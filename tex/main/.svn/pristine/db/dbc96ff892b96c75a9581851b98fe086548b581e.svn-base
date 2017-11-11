@@ -17,6 +17,5 @@
 %\input{./document}
 %
 %\input{./biblio}
-\newpage
 \input{./prolog}
 \end{document}

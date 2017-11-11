@@ -2,5 +2,5 @@
 
 \section{General Predicates}
 \lstinputlisting[language=Prolog]{elpi/main.elpi}
-\section{Dependent Products}
+\section{Dependents Products}
 \lstinputlisting[language=Prolog]{elpi/calc/setPi.elpi}

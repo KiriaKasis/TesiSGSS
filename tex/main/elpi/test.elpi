@@ -1,0 +1,210 @@
+accumulate debug.
+
+accumulate main.
+
+accumulate calc/setPi.
+accumulate calc/setSigma.
+accumulate calc/and.
+accumulate calc/propEq.
+accumulate calc/forall.
+accumulate calc/exist.
+accumulate calc/propId.
+accumulate calc/implies.
+accumulate calc/letIn.
+accumulate calc/or.
+accumulate calc/setSum.
+accumulate calc/singleton.
+
+
+test m A Q Qy
+ :- Long = ( forall singleton x\
+      implies (propEq singleton x star) 
+      (implies (propEq singleton star x)
+      (forall 
+            (setPi 
+                (setPi 
+                    (setPi singleton y\ propEq singleton star x) _\ 
+                    singleton) 
+                _\singleton
+            ) f\
+                (propEq singleton 
+                    (app f (lambda (setPi singleton y\ propEq singleton star star)
+                         x\ star)) 
+                    star) 
+            ))
+        ),
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long Q),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n"
+    ,spy(ofType Q Qy int)
+    .
+
+test l A Q Qy
+ :- Long = ( forall singleton x\
+      implies (propEq singleton x star) 
+      (implies (propEq singleton star x)
+      ( forall 
+            (setPi 
+                (setPi singleton y\ propEq singleton star x) 
+                _\singleton
+            ) f\
+                (propEq singleton 
+                    (app f (lambda singleton x\ (eq singleton star))) 
+                    star) 
+            ))
+        ),
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long Q),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n"
+  ,  spy(ofType Q Qy int)
+    .
+
+test i A B C 
+ :- Long = ( forall singleton x\ forall singleton y\ 
+    (implies 
+        (propEq singleton x y) (implies 
+        (propEq singleton y x) (implies 
+        (propEq singleton x star) (implies 
+        (propEq singleton y star) (implies 
+        (propEq singleton star x) (implies 
+        (propEq singleton star y) (
+            forall 
+                (setPi (propEq singleton x star) d\ 
+                    setPi (propEq singleton x x) h\
+                        (propEq
+                            (propEq singleton x star)
+                                d
+                                h
+                            )) f\
+                propEq
+                    (propEq
+                        (propEq singleton star star)
+                            (eq singleton y)
+                            (eq singleton x))
+                    (app 
+                        (app f (eq singleton y))
+                        (eq singleton x))
+                    (app 
+                        (app f (eq singleton x))
+                        (eq singleton x))
+            )
+        )))))))     
+    ,
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long B),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(ofType B C int)
+    .
+
+
+
+
+test h A Q Qy
+ :- Long = (
+        forall (setPi (setPi singleton _\singleton) _\singleton) f\
+        (propEq singleton (app f (lambda singleton x\ x)) star) 
+        ),
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long Q),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n"
+  ,  spy(ofType Q Qy int)
+    .
+
+test g A Q Qy
+ :- Long = (
+        forall singleton x\
+        forall (setPi singleton _\singleton) g\
+        forall (setPi (propEq singleton (app g x) (app g star)) _\singleton) f\
+        (implies (propEq singleton star x)
+            (propEq singleton 
+                    (app f (eq singleton (app g star))) 
+                    (app f (eq singleton (app g star))) 
+            )
+        )
+        ),
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long Q),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n"
+  ,  spy(ofType Q Qy int)
+    .
+
+
+
+
+test f A Q Qy
+ :- Long = (
+        forall singleton x\
+        forall (setPi (propEq singleton x star) _\singleton) f\
+        ( implies (propEq singleton star x)
+            (propEq singleton 
+                    (app f (eq singleton star)) 
+                    (app f (eq singleton star)) 
+            )
+        )
+        ),
+    spy(ofType Long A ext),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(interp Long Q),
+    print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n",
+    spy(ofType Q Qy int)
+    .
+
+testZ A B C
+  :- Long = 
+(forall 
+  singleton x\
+  (implies (propEq singleton x star) (implies (propEq singleton star x) 
+      (forall 
+        (setPi 
+          (propEq 
+            singleton star x) y\
+          (setPi 
+            (propEq (propEq singleton star star) y (eq singleton star)) _\
+            singleton)) f\   
+        (propEq singleton 
+        (app 
+            (app f (eq singleton star))
+            (eq (propEq singleton star star) 
+            (eq singleton star)
+            )) 
+        star)
+            )  ))
+    )
+    , spy(ofType Long A ext)
+    , spy(interp Long B)
+    , spy(ofType B C int)
+    .
+
+
+
+testE A B C
+  :- Long = 
+(forall 
+  (propEq singleton star star) x\
+  (implies (propEq (propEq singleton star star) x (eq singleton star)) (implies (propEq (propEq singleton star star) (eq singleton star) x) 
+      (forall 
+        (setPi 
+          (propEq 
+            (propEq singleton star star) (eq singleton star) x) y\
+          (setPi 
+            (propEq (propEq (propEq singleton star star) (eq singleton star) (eq singleton star)) y (eq (propEq singleton star star) (eq singleton star))) _\
+            (propEq singleton star star))) f\   
+        (propEq (propEq singleton star star) 
+        (app 
+            (app f (eq (propEq singleton star star) (eq singleton star)))
+            (eq (propEq (propEq singleton star star) (eq singleton star) (eq singleton star)) 
+            (eq (propEq singleton star star) (eq singleton star))
+            )) 
+        (eq singleton star))
+            )  ))
+    )
+    , spy(ofType Long A ext)
+    , spy(interp Long B)
+    , spy(ofType B C int)
+    .
+

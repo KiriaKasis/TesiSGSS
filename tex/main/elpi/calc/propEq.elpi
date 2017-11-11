@@ -1,0 +1,67 @@
+
+%% calc_Eq.elpi
+
+
+type propEq mttType -> mttTerm -> mttTerm -> mttType.
+type eq   mttType -> mttTerm -> mttTerm.
+
+pts_eq K props :- pts_leq K set, !.
+pts_eq _ propc.
+
+ofType (propEq A AA1 AA2) KIND ext 
+    :- ofType A KIND' ext
+    ,  pts_eq KIND' KIND
+    ,  isa AA1 A ext
+    ,  isa AA2 A ext
+    .
+
+
+of (eq C Cc) (propEq C Cc Cc) ext
+    :-  spy(of Cc C ext)
+    .
+
+
+
+%dstep A B :- of _ ()
+
+dconv (propEq A AA1 AA2) (propEq A' AA1' AA2') :- spy(conv A A'), spy(conv AA1 AA1'), spy (conv AA2 AA2').
+
+dconv (eq A AA) (eq A' AA') :- conv A A', conv AA AA'.
+
+
+interp (propEq A Aa1 Aa2) R 
+    :- spy(setoid_eq A EquA)
+    ,  spy(interp_isa Aa1 A Aa1')
+    ,  spy(interp_isa Aa2 A Aa2')
+    ,  spy(R = (EquA Aa1' Aa2'))
+    .
+
+interp (eq  A Aa)  T
+    :- spy(setoid_refl A ReflA)
+    ,  spy(interp Aa Aa')
+    ,  T = (ReflA Aa') 
+    .
+setoid_refl (propEq _ _ _) (_\id singleton star).
+setoid_eq (propEq A Aa1 Aa2) (_\ _\ (propId singleton star star)).
+
+tau (propEq T_ T1 T2) (propEq T T1' T2') (F)
+    :- spy(tau_proof_eq T1 T1' T F1)
+    ,  spy(tau_proof_eq T2 T2' T F2)
+    ,  spy(interp_isa T1 T T1i)
+    ,  spy(interp_isa T2 T T2i)
+    ,  spy(interp_isa T1' T T1i')
+    ,  spy(interp_isa T2' T T2i')
+    ,  spy(interp T Ti)
+    ,  F = x\ impl_app ( 
+                impl_app ( 
+                 forall_app ( 
+                  forall_app ( 
+                   impl_app ( 
+                    forall_app ( 
+                     forall_app (k_propId T) T1i) T1i') F1) T2i) T2i') F2) x
+    .
+tau_trasp (propEq _ _ _ ) (propEq _ _ _) (h\h'\k\ k).
+
+
+
+tau_proof_eq  _ _ (propEq T A B) (id singleton star).

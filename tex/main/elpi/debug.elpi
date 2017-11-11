@@ -1,0 +1,95 @@
+
+announce G :- bracket " " ">>" G "\n", fail.
+
+
+%The only entry point fot spy, is add a new indent and call the helper spy'
+spy G :- count_indent' T, indent [0 | T] => spy' G.
+
+spy' G :-  (bracket "_" "[+[Begin \n" G "\n", G, bracket "-" "]-]Success  \n" G "\n") , !. 
+spy' G :-  bracket "." "].]Fail  \n" G "\n",  fail.
+
+%basic printing function for all debugging
+bracket IC Pre G Post :- print_indent IC I N, term_to_string G S, 
+    Q is (N ^ I ^ Pre ^ S ^ Post), print Q.
+
+
+
+
+%Compute the lenght of a list
+list_len [] 0 :- !.
+list_len [_ | L] N :- list_len L M, N is M + 1.
+
+
+member X [Y | L] 
+    :- (X = Y ; member X L) 
+    .
+
+count_indent' Old Tot 
+    :- indent X
+    ,  not (member X Old)
+    ,  !
+    ,  count_indent' [X | Old] Tot
+    .
+count_indent' Old Old.
+
+countPred Pred Old Tot 
+    :- Pred X1 X2 X3 X4
+    ,  not (member [[X3, X4], X1] Old)
+    ,  !
+    ,  countPred Pred [[[X3, X4], X1] | Old] Tot
+    .
+countPred Pred Old Old.
+
+to_zero [] [].
+to_zero [X | L] [0|L'] :- to_zero L L'.
+count_indent' TT :- count_indent'  [] T, to_zero T TT.
+
+print_indent :- count_indent' T,  print_dash T.
+
+print_dash [].
+print_dash [X|L] :- print "-", print_dash L.
+str_dash C [] "".
+%str_dash C [_ | E] "" :- E = [], !.
+str_dash C [_ | L] S :- str_dash C L SS, S is (C ^ SS), !.
+
+indent_str C S N :- count_indent' T, str_dash C T S, list_len T N', term_to_string N' N.
+print_indent C S N :- indent_str C S N.
+
+
+
+
+
+
+
+
+/*
+tau_trasp A B C :- announce (tau_trasp A B C).
+macro_interp A B P :- announce (macro_interp A P).
+setoid_eq A B :- announce (setoid_eq A B).
+tau A B C :- announce (tau A B C).
+tau_proof_eq A B C D :- announce (tau_proof_eq A B C D).
+
+
+interp A B      :- announce (interp A B).
+
+hnf A B       :- announce (hnf A B).
+hstep A B     :- announce (hstep A B).
+dstep A B     :- announce (dstep A B).
+nf A B        :- announce (nf A B).
+conv A B      :- announce (conv A B).
+of A B IE     :- announce (of A B IE). 
+
+ofType A K IE :- announce (ofType A K IE).
+isa BB B IE   :- announce (isa BB B IE) .
+
+of A B IE :- announce (of A B IE). 
+locDef A B C :- announce(locDef A B C).
+locDecl A B :- announce(locDecl A B).
+locDeclType A B :- announce(locDeclType A B).
+
+nf A B :- announce (nf A B).
+hstep A B :- announce (hstep A B).
+conv A B :- announce ( conv A B).
+testB A :- announce (testB A).
+hstep A B :- announce (hstep A B). 
+*/
