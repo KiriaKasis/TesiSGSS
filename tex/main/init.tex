@@ -98,7 +98,12 @@
 \newcommand{\s}[1]{\noop\textsf{\text{\ensuremath{\mathsf{#1}}}}}
 \newcommand{\type}{\s{type}}
 
-
+\lstset{showstringspaces=false, frame=single,
+	literate = {->}{{{$\rightarrow$}}}{1}
+		{=>}{{{$\Rightarrow$}}}{1}
+		{:-}{{{$\vdash$}}}{1}
+		{'}{{\!\textquotesingle}}{1},
+}
 
 
 
