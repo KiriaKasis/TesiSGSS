@@ -112,14 +112,13 @@ As pointed out in the introduction before we could begin the implementation we h
 	\infer0[Eq-E]{a = b \in A\ [{\s{h}\in \s{Eq}(A,a,b)}]}
 	\end{prooftree}
 	\]	
-	This weaker form has nicer computational properties, the most important one being that it is always deterministic and terminating to check if it is possible to apply given a specific context while still allowing to locally definitions in a context via implication or dependents types.
+	This weaker form has nicer computational properties, the most important one being that it is always deterministic and terminating to check if it is possible to apply given a specific context while still allowing to locally definitions in a context via implication or dependents types. 
+	
+	This solution can be seen as an extension of simply encoding proofs in $\lambda$-terms; we have already noted that at the extensional level there are not satisfying such encoding because of the propositional equality elimination rule, whose appearances in the $\lambda$-terms would be confusing at the extensional level. From this point of view our solution can be thought of as realizing that adding the needed equalities to the context is enough, and that the locally scoped nature of the context provide exactly the functionality we need to use equalities. Compared to using whole derivation trees we now use $\lambda$-terms plus some context.
 	
 	A drawback of this solution is that it is complex to use even simple lemmas; to this problem we offer two solutions: to manually use the cut elimination of the calculus or to introduce a new \emph{let in} construct \[\s{let}\ x\ :=\ t_1 \in T\ \s{in}\ t_2\] used to introduce locally typed definitions.
 	
 	As of this writing this \emph{let in} in not yet implemented as there many different ways the needed functionality can be obtained each with different compromises and it is not entirely clear which implementation method is the most adeguate to our project. In our simple cases it is acceptable to manually perform the cut elimination to locally include the desired lemma so we plan to implement a proper \emph{let in} once there is a strong need for it.
 	
 	\subsubsection{$\xi$-Rule}
-	Another difference between the calculus in Maietti's work and ours is that our model validates the $\xi$-rule at the intensional level, removing it would require a syntax directed rule for explicit substitution.	
-	%\subsubsection{Code Reuse}
-	%	As already hinted above when discussing some of the qualities of $\lambda$Prolog 
-	
+	Another difference between the calculus in Maietti's work and ours is that our model validates the $\xi$-rule at the intensional level, removing it would require a refactoring of the conversion to include a list of \emph{forbidden} variables that block conversion. Until this moment it was not a priority to implement this functionality, but still we have some feasible implementation paths.
