@@ -110,70 +110,115 @@
 
 \section{Introduction}
 
-	
 \begin{frame}
-	Usual mathematical proof are written in natural languages
-	
-	Flexible and intuitive but easily ambiguous
-	(esempi)
-	
-	Formal languages allow for a centralized proof to be trusted
-	
-	After the initial implementation and verification (which at some point must be verified on paper) new proof can rely on the initial proof
-	
-	new implementations can be verified on older implementations
-	
-	This allow for various languages and formal systems to be available for different areas
-	
-	An explicit computational semantic often allows for code extraction so that verified executables can be automatically generated
-	
-	questi linguaggi richiedono competenze specifiche per poter essere usati
-	
-	As a convention mathematical proofs and theories are expressed in variations of set theories.
-	
-	For verification Type Theories are usually preferred as they more closely resemble the underlying structure of computers.
-	
-	Also, mathematicians strive for %love!!!
-		Quotients
-	
-	Universes
-	
-	The Two level of the minimalist foundations acts on one side as a programming language and on the other side as a formal language capable of expressing subsets and quotients
-	
+\frametitle{Mathematical Proofs}
+\begin{center}
+{\includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{proof.png}}
+\end{center}
 \end{frame}
+
 \begin{frame}
-%	\begin{columns}
-%	\column{0.6\textwidth}
+\frametitle{Mathematical Proofs}
+\begin{center}
+	{\includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{coq2.png}}
+\end{center}
+\end{frame}
+
+	
+\begin{frame}
+%\frametitle{}
+\begin{block}{On paper}
+	\begin{itemize}
+		\item Set Theory (ZFC)
+		\item Quotients, unctions as graphs, extensionality of $\in$,  \textellipsis
+		\item Classical logic
+	\end{itemize}
+\end{block}
+\begin{block}{On proof-assistants}
+	\begin{itemize}
+		\item Type Theories
+		\item Intensionality
+		\item Constructive and computational
+	\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}{}\frametitle{The Minimalist Foundation}
+	\begin{block}{}
+		\begin{itemize}
+			\item Ideated by Maietti and Sambin in 2005
+			\item Completed by Maietti in 2009
+			\item Is compatible with the most influential constructive foundations
+			\item Has an extensional level (with quotients and subsets) and an intensional level (decidable type-checking)
+			\item Forget-restore principle
+		\end{itemize}
+	\end{block}
+
+	In 2009 Maietti succesfully interpreted the extensional level (emTT) in the intensional level (mTT)
+
+\end{frame}
+
+%\begin{frame}	Flexible and intuitive but easily ambiguous
+%	(esempi)
+%	
+%	Formal languages allow for a centralized proof to be trusted
+%	
+%	After the initial implementation and verification (which at some point must be verified on paper) new proof can rely on the initial proof
+%	
+%	new implementations can be verified on older implementations
+%	
+%	This allow for various languages and formal systems to be available for different areas
+%	
+%	An explicit computational semantic often allows for code extraction so that verified executables can be automatically generated
+%	
+%	questi linguaggi richiedono competenze specifiche per poter essere usati
+%	
+%	As a convention mathematical proofs and theories are expressed in variations of set theories.
+%	
+%	For verification Type Theories are usually preferred as they more closely resemble the underlying structure of computers.
+%	
+%	subsets, quotients an elements belongs to many sets
+%	
+%	Also, mathematicians strive for %love!!!
+%		Quotients
+%	
+%	Universes
+%	
+%	The Two level of the minimalist foundations acts on one side as a programming language and on the other side as a formal language capable of expressing subsets and quotients
+%	
+%\end{frame}
+%\begin{frame}
+%%	\begin{columns}
+%%	\column{0.6\textwidth}
+%%	\begin{block}{The Minimalist Foundation}
+%%	\begin{itemize}
+%%			\item {The Minimalist Foundation [MaiettiSambin 2005, Maietti 2009] is two-level formal system.}
+%%			\note[item]{ compatible with all majors constructive foundations for mathematics
+%%			}
+%%			\item {The extensional level allows for quotients.} 
+%%			\item {The intensional satisfies the proof-as-programs paradigm.}
+%%			\item{Here proof-as-program means CT+AC.}
+%%			\note[item]{It is possible to interpret the extensional in the intensional.}
+%%		\end{itemize}
+%%	\end{block}
+%%	\column{0.4\textwidth}
+%%	\scalebox{0.7}{\includegraphics[trim= 0 0 0 0]{graph3}}
+%%\end{columns}
+%%\note{TODO: ovvio problema di dimensioni...}
 %	\begin{block}{The Minimalist Foundation}
 %	\begin{itemize}
-%			\item {The Minimalist Foundation [MaiettiSambin 2005, Maietti 2009] is two-level formal system.}
-%			\note[item]{ compatible with all majors constructive foundations for mathematics
-%			}
+%			\item {The Minimalist Foundation [MaiettiSambin 2005, Maietti 2009] is a two-level formal system completed in 2009 by Maietti.}
 %			\item {The extensional level allows for quotients.} 
 %			\item {The intensional satisfies the proof-as-programs paradigm.}
-%			\item{Here proof-as-program means CT+AC.}
+%			%\item{Here proof-as-program means CT+AC.}
+%			\item{The Minimalist Foundation is compatible with all major constructive foundations for mathematics}
 %			\note[item]{It is possible to interpret the extensional in the intensional.}
 %		\end{itemize}
 %	\end{block}
-%	\column{0.4\textwidth}
-%	\scalebox{0.7}{\includegraphics[trim= 0 0 0 0]{graph3}}
-%\end{columns}
-%\note{TODO: ovvio problema di dimensioni...}
-	\begin{block}{The Minimalist Foundation}
-	\begin{itemize}
-			\item {The Minimalist Foundation [MaiettiSambin 2005, Maietti 2009] is a two-level formal system completed in 2009 by Maietti.}
-			\item {The extensional level allows for quotients.} 
-			\item {The intensional satisfies the proof-as-programs paradigm.}
-			%\item{Here proof-as-program means CT+AC.}
-			\item{The Minimalist Foundation is compatible with all major constructive foundations for mathematics}
-			\note[item]{It is possible to interpret the extensional in the intensional.}
-		\end{itemize}
-	\end{block}
-\vspace{0.5em}
-\scalebox{0.66}{\includegraphics[trim= 0 0 0 0]{graph4}
-               }
-
-\end{frame}
+%\vspace{0.5em}
+%\scalebox{0.66}{\includegraphics[trim= 0 0 0 0]{graph4}
+%               }
+%
+%\end{frame}
 
 \begin{frame}
 \frametitle{Outline of Our Work}
