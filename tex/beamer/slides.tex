@@ -130,18 +130,35 @@
 \begin{block}{On paper}
 	\begin{itemize}
 		\item Set Theory (ZFC)
-		\item Quotients, unctions as graphs, extensionality of $\in$,  \textellipsis
+		\item Quotients, functions as graphs, extensionality of $\in$\textellipsis
 		\item Classical logic
 	\end{itemize}
 \end{block}
 \begin{block}{On proof-assistants}
 	\begin{itemize}
 		\item Type Theories
-		\item Intensionality
-		\item Constructive and computational
+		\item Intensionality, computational semantic, code extraction\textellipsis
+		\item Constructive logic
 	\end{itemize}
 \end{block}
 \end{frame}
+\begin{frame}
+	\begin{block}{Notation}
+		\begin{columns}
+			\column{0.45\textwidth}~\vspace{0.5em}~
+			\begin{prooftree}
+				\AxiomC{$P_1$}
+				\AxiomC{$P_2$}
+				\AxiomC{$\ldots$}
+				\AxiomC{$P_n$}
+				\QuaternaryInfC{$C$}
+			\end{prooftree}~\vspace{0.5em}~~~~
+			\column{0.55\textwidth}
+			The \alert{judgement} $C$ holds if all the judgements $P_1, P_2, \ldots, P_n$ hold.
+		\end{columns}
+	\end{block}
+\end{frame}
+
 \begin{frame}{}\frametitle{The Minimalist Foundation}
 	\begin{block}{}
 		\begin{itemize}
@@ -341,7 +358,7 @@ of (lam F) (arr A B) :- \alert{pi x\\ of x A =>} of (F x) B.
 \note[item]{The third typing rule for free variables can use the assumptions introduced in the lambda rule by the => in the pi}
 \end{frame}
 
-\section{Type checkers for the two levels of the Minimalist Foundation}
+\section[Type checker for MF]{Type checkers for the two levels of the Minimalist Foundation}
 
 \begin{frame}[fragile]\frametitle{Preliminary Work: Minor Changes to the Calculus}
 \begin{block}{Syntax directed version of the rules }
@@ -523,7 +540,7 @@ of (lam F) (arr A B) :- \alert{pi x\\ of x A =>} of (F x) B.
 \end{block}
 \end{frame}
 
-\section{Interpreting the extensional level in the intensional level}
+\section[Interpretation]{Interpreting the extensional level in the intensional level}
 
 \begin{frame}\frametitle{Design of the Interpretation}
 \begin{block}{The Interpretation in a Nutshell}
@@ -648,7 +665,7 @@ pippo (propEq T T1 T2) (propEq T T1' T2') (SIGMA) :-
 \end{semiverbatim}
 \end{frame}
 
-\section{Conclusions and Future Works}
+\section[Conclusions]{Conclusions and Future Works}
 
 \begin{frame}[fragile]{Conclusions}
 %  Implementing the Minimalist Foundation is very time consuming
