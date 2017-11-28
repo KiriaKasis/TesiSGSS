@@ -127,14 +127,14 @@
 	
 \begin{frame}
 %\frametitle{}
-\begin{block}{On paper}
+\begin{block}{On Paper}
 	\begin{itemize}
 		\item Set Theory (ZFC) or Category Theory
 		\item Quotients, functions as graphs, extensionality of $\in$\textellipsis
 		\item Classical logic
 	\end{itemize}
 \end{block}
-\begin{block}{On proof-assistants}
+\begin{block}{On Proof Assistants}
 	\begin{itemize}
 		\item Type Theories
 		\item Intensionality, computational semantic, code extraction\textellipsis
@@ -143,7 +143,7 @@
 \end{block}
 \end{frame}
 \begin{frame}
-	\begin{block}{Notation: Inference rules}
+	\begin{block}{Notation: Inference Rules}
 		\begin{columns}
 			\column{0.45\textwidth}~\vspace{0.5em}~
 			\begin{prooftree}
@@ -434,6 +434,36 @@ of (lam F) (arr A B) :- \alert{pi x\\ of x A =>} of (F x) B.
  It does not solve the problem of the $conv$ rule.
 \end{block}
 \end{frame}
+%\begin{frame}[fragile]\frametitle{Preliminary Work: Major Changes to the Calculus}
+%\begin{block}{Problem: proofs are not recorded at the extensional level}
+%	\begin{center}{\small
+%			\begin{bprooftree}
+%				\AxiomC{$true \in  Eq(C,c,d)$}
+%				\UnaryInfC{$c = d \in C$}
+%			\end{bprooftree}
+%			\begin{bprooftree}
+%				\AxiomC{$true \in B$\hspace{-1em}}
+%				\AxiomC{$true \in C$\hspace{-1em}}
+%				\AxiomC{$B~ \textsl{props}$\hspace{-1em}}
+%				\AxiomC{$C~ \textsl{props}$}
+%				\QuaternaryInfC{$true \in B \wedge C$}
+%			\end{bprooftree}
+%	}\end{center}
+%\end{block}
+%\begin{block}{Discarded solutions}
+%	The typechecker takes the whole \alert{derivation} in input.\\
+%
+%	The datatype for the derivation is yet another typed $\lambda$-calculus.
+%\end{block}
+%
+%\begin{block}{Partial solution}
+%	%For first order logic rules we keep the proof term like in the intensional level.\\
+%	Keep proof terms as in the intensional level.\\
+%	%The user can still just be shown a $true$ because of proof irrelevance.\\
+%	To a user we can still show $true$  because of proof irrelevance.\\
+%	It does not solve the problem of the $conv$ rule.
+%\end{block}
+%\end{frame}
 
 \begin{frame}[fragile]\frametitle{Preliminary Work: Major Changes to the Calculus}
 \begin{block}{Full solution: deterministic equality check in the ext. level}
@@ -530,7 +560,7 @@ of (lam F) (arr A B) :- \alert{pi x\\ of x A =>} of (F x) B.
 \end{block}
 \begin{block}{Future works}
 \begin{itemize}
-        \item Complete and debug all the rules.
+	\item Extend the implementation to the remaining rules.
 	\item The changes to the calculi have to be validated
 	\item The $\xi$-rule at the intentional level must be removed.\\
           Requires a syntax directed version of explicit substitutions.
@@ -547,12 +577,13 @@ of (lam F) (arr A B) :- \alert{pi x\\ of x A =>} of (F x) B.
 \begin{itemize}
 	\item In the Minimalist Foundation types are interpreted in dependent setoids.
 	\item The interpretation on types is defined by structural recursion.
-	\item For simple types (the singleton, the empty set, naturals) the setoid equality is the intensional propositional equality
+	\item Canonical Isomorphism are used coerce terms to the right type to correct mismatching.
+%	\item For simple types (the singleton, the empty set, naturals) the setoid equality is the intensional propositional equality
         \item The equality of functions imposes the $\xi$ rule
         \item Proof irrelevance is imposed by the interpretation
 	%\item The interpretation is defined on closed $\lambda$-terms. 
-        \item Lack of impredicative quantifications avoids user-defined
-         type equalities: this is NOT homotopy type theory
+%        \item Lack of impredicative quantifications avoids user-defined
+%         type equalities: this is NOT homotopy type theory
 \end{itemize}
 \end{block}
 \end{frame}
